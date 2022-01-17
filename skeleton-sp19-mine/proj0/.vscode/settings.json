@@ -1,0 +1,19 @@
+{    
+//    "files.exclude": {
+//        "**/.classpath": true,
+//        "**/.project": true,
+//        "**/.settings": true,
+//        "**/.factorypath": true
+//    }
+"java.home": "D:\\JDK8\\jdk1.8.0_311",
+//"java.requirements.JDK11Warning": false,
+//"java.semanticHighlighting.enabled": true,
+"java.project.sourcePaths": ["src"],
+"java.project.outputPath": "bin",
+"files.exclude": {
+    "**/.classpath": true,
+    "**/.project": true,
+    "**/.settings": true,
+    "**/.factorypath": true
+},
+}
