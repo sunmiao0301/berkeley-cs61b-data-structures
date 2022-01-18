@@ -13,6 +13,7 @@ Fundamental dynamic data structures, including linear lists, queues, trees, and 
 - Discussing
 - Lab
 - Assignments/Exams
+- Project
 
 ### Java — Install Java 8 on Windows and use it in VSCode-x64-1.63.2
 
@@ -137,7 +138,153 @@ So, the solution is: Hit Ctrl+Shift+P to show all commands, then type "Java" and
 
 ![](https://raw.githubusercontent.com/sunmiao0301/Public-Pic-Bed/main/0118step3.png)
 
+- reboot
+- **Setup IntelliJ IDEA for Java Development with CS61B**
 
+- 确保您已经拿到skeleton-sp19，并且您在与文件夹`library-sp19`和`lab1`相同的目录中有一个目录`lab2setup`。
+
+1. 在*欢迎*窗口中，单击窗口右下角的**配置 → 插件**按钮。![配置插件](https://sp19.datastructur.es/materials/lab/lab2setup/img2/plugin_setup1.png)
+2. 在出现的窗口中，单击“Marketplace”并在顶部的搜索栏中输入“CS 61B”。CS 61B 插件条目应该会出现。如果您单击自动完成建议，可能会出现与下面显示的窗口略有不同的窗口——这没关系。
+3. 单击绿色的**安装**按钮，然后等待插件下载并安装。![搜索 CS 61B](https://sp19.datastructur.es/materials/lab/lab2setup/img2/plugin_setup2.png)
+4. 现在，搜索“Java Visualizer”，然后单击绿色的**安装**按钮来安装插件。![搜索 Java 可视化工具](https://sp19.datastructur.es/materials/lab/lab2setup/img2/plugin_setup3.png)
+5. **重新启动 IDE**按钮以完成安装。
+
+**有关使用插件的更多信息，请阅读[插件指南](https://sp19.datastructur.es/materials/guides/plugin.html#using-the-plugins)。您现在不必阅读此内容。注意，只有在安装了这两个插件后才能继续。**
+
+## 项目设置
+
+IntelliJ 是一个 IDE（集成开发环境）。它包括一个文本编辑器，以及许多额外的功能，使编写代码更容易。为了在这个特殊的环境中运行您的文件，我们可以使用我们的 IDE 魔法，我们需要将我们的文件导入到项目中，类似于将图像或剪辑导入到 iMovie 或 Windows Movie Maker 等程序的项目中的方式。幸运的是，这是一个相当轻松的过程。
+
+通过启动 IntelliJ 开始设置过程。
+
+1. 打开 IntelliJ 后，导入项目，关于导入项目的详细信息，见[**此处的“从现有资源创建项目﻿”**](https://www.jetbrains.com/help/idea/import-project-or-module-wizard.html#import-project)（2021.3版本移除了欢迎页面上的import project按钮）
+
+- 如果欢迎屏幕打开，请按Ctrl+Shift+A，键入`project from existing sources`，然后单击弹出窗口中的**从现有源中导入项目**操作。
+
+1. 找到并选择您的 lab2setup 目录，然后按 OK 按钮。从现在开始，您应该能够为每个屏幕简单地选择下一个，但为了安全起见，更多的屏幕截图如下。**如果您在不注意的情况下继续单击下一步并看到一条消息说没有指定 SDK，请停止并参考第 8 步！**如果您使用的是 Windows 或 Linux，您可能会看到与您的操作系统相对应的不同窗口（下图来自 macOS）。
+
+   
+
+   ![IntelliJ 选择文件夹](https://raw.githubusercontent.com/sunmiao0301/Public-Pic-Bed/main/0118import.png)
+
+2. 确保选择“从现有资源创建项目”，然后按下一步。在此步骤中，您不必更改任何内容。![导入项目](https://raw.githubusercontent.com/sunmiao0301/Public-Pic-Bed/main/0118justnext.png)
+
+3. 保持这些字段不变，然后按下一步。![项目名](https://raw.githubusercontent.com/sunmiao0301/Public-Pic-Bed/main/0118justnext2.png)
+
+4. 在这里什么都不做，然后按下一步。对于上下文，IntelliJ 会自动检测您的 Java 文件是什么，并自行配置以编辑和运行它们。![进口来源](https://raw.githubusercontent.com/sunmiao0301/Public-Pic-Bed/main/0118justnext3.png)
+
+5. 您可能实际上看不到弹出下一个窗口。如果是，请单击下一步。如果没有，那很好。![进口来源](https://raw.githubusercontent.com/sunmiao0301/Public-Pic-Bed/main/0118justnext4.png)
+
+6. 您可能实际上看不到弹出下一个窗口。如果是，请单击下一步。如果没有，那很好。![进口来源](https://raw.githubusercontent.com/sunmiao0301/Public-Pic-Bed/main/0118justnext5.png)
+
+7. 您可能实际上看不到弹出下一个窗口。如果是这样，并且您在左侧边栏上看到 11，那么您就很清楚了，只需按下一步，然后在最终屏幕上单击完成，瞧，您的项目已设置完毕，您可以跳过第 8、9 步！如果您没有看到 11（或您安装的任何 Java 版本），请继续执行步骤8、9。![选择 SDK](https://raw.githubusercontent.com/sunmiao0301/Public-Pic-Bed/main/0118justnext9.png)
+
+8. 点击左上角的加号，从下拉菜单中点击JDK![添加 JDK](https://raw.githubusercontent.com/sunmiao0301/Public-Pic-Bed/main/0118justnext6.png)
+
+   ![](https://raw.githubusercontent.com/sunmiao0301/Public-Pic-Bed/main/0118justnext7.png)
+
+9. 找到保存 JDK 的位置，选择它，然后按 OK 按钮。IntelliJ 很可能已经为您找到了该文件夹（它将被称为`Home`）并将其设置为默认选择。如果是这种情况，只需按“确定”。
+
+   否则，在我的 Mac 上，它位于`/Library/Java/JavaVirtualMachines/jdk-11.0.1.jdk/Contents/Home`.
+
+   您可以`/usr/libexec/java_home`在终端上运行以找出：
+
+```
+$ /usr/libexec/java_home
+/Library/Java/JavaVirtualMachines/jdk-11.0.1.jdk/Contents/Home
+```
+
+如果您在 Windows 上，您的路径可能看起来像`C:\Program Files\Java\jdk11.0.1`. 如果您使用的是实验室计算机，它应该位于 `/usr/lib/jvm/java-10-oracle/`. 一旦此窗口关闭并且您的屏幕看起来像第 8 步中的图像，请按下一步，然后完成，您就完成了！
+
+![选择 JDK](https://raw.githubusercontent.com/sunmiao0301/Public-Pic-Bed/main/0118justnext8.png)
+
+10. 按下完成后，您应该会看到与下图非常相似的内容。`lab2setup` 您可能需要单击左上角旁边的小三角形才能显示源文件（`Dog.java`和`DogTest.java`） `lab2setup`。如果您没有看到侧边栏，请转到**查看 → 工具窗口 → 项目**，或选择左侧工具栏上的 **“项目” 。**![选择 JDK](https://raw.githubusercontent.com/sunmiao0301/Public-Pic-Bed/main/0118justnext10.png)
+
+### 获取 Java 库
+
+~~还记得那个空`library-sp19`文件夹吗？我们将首先使用该类所需的 Java 库填充该文件夹。~~
+
+1. ~~首先，打开一个终端窗口并`cd`进入您的`s**`存储库。~~
+
+2. ~~跑~~
+
+   ```
+   git submodule update --init
+   ```
+
+   ~~你应该得到这样的输出：~~
+
+   ```bash
+   Submodule 'library-sp19' (https://github.com/Berkeley-CS61B/library-sp19) registered for path './'
+   Cloning into '/Users/eli/Downloads/sp19-s1/library-sp19'...
+   Submodule path './': checked out '1fbc26d69f044b48346849989aeeff9761b00abf'
+   ```
+
+3. ~~达达！你现在有图书馆了！~~
+
+   ```
+   $ ls library-sp19/
+   data/
+   javalib/
+   ```
+
+   ~~下图是`library-sp19`. 查看文件夹内部，确保您看到下面列出的七个 .jar 文件。如果您使用的是操作系统的文件资源管理器，则“jar”部分可能不会显示在文件名中，这没关系。~~
+
+   ```
+   library-sp19/
+   └── javalib
+    ├── algs4.jar
+    ├── hamcrest-core-1.3.jar
+    ├── jh61b.jar
+    ├── junit-4.12.jar
+    ├── stdlib-package.jar
+    ├── stdlib.jar
+    └── xchart-3.5.1.jar
+   ```
+
+以上这一部分，我直接在skeleton-sp19中下载得到library-sp19文件夹。（我不想用自动评分）
+
+### 导入库和运行代码
+
+仔细检查`DogTest.java`。您应该看到文件中的一些单词是红色的，特别是`Test`和`assertEquals`。如果您将鼠标悬停在它们上面，您会看到一条类似“无法解析符号”的消息。问题是我们没有告诉 IntelliJ 在哪里可以找到我们刚刚提取的 CS61B 库。
+
+点击IntelliJ 左上角的**File → Project Structure 。**应该会弹出一个窗口，您应该单击该窗口左侧面板上的**SDK 。**完成后，它将如下所示：![添加库步骤 1](https://sp19.datastructur.es/materials/lab/lab2setup/img3/add_libs1.png)
+
+单击此窗口底部中间的“加号”按钮，然后导航到 `javalib`文件夹（位于 中`library-sp19`）。选择`*.jar`此文件夹中的所有文件（使用 shift-click 选择多个文件）并按“打开”或类似按钮。![添加库步骤 2](https://sp19.datastructur.es/materials/lab/lab2setup/img3/add_libs2.png)
+
+按 OK 几次，您会发现自己再次查看 DogTest.java。这一次，红色文字应该消失了。
+
+**通过单击Run → Run**尝试运行代码，如下所示。![运行->运行](https://sp19.datastructur.es/materials/lab/lab2setup/img3/run_run.png)
+
+这可能会弹出一个非常小的对话框窗口，如图所示。基本上 IntelliJ 是说它不太确定运行程序的意思，并给您两个选择： 0. 是在运行程序之前编辑配置（我们不会这样做）。2.就是运行DogTest类，就是我们想要的。![运行 -> 运行对话框](https://sp19.datastructur.es/materials/lab/lab2setup/img3/run_dialog.png)
+
+单击 DogTest，应该会出现一个绿色条，并显示消息“测试通过：2 个测试中的 2 个”，如下所示。![测试通过](https://raw.githubusercontent.com/sunmiao0301/Public-Pic-Bed/main/0118finished.png)
+
+运行代码后，您会注意到右上角的绿色播放和绿色错误图标现在是绿色的；这是因为当你点击“2.”时，IntelliJ 记住了你为这个项目运行的意思，你现在可以点击这个按钮来运行你的程序。随着我们使用 IntelliJ 的更高级功能，随着时间的推移，您将了解更多相关信息。
+
+### 嵌入式终端（可选）
+
+IntelliJ 有一个很酷的功能，您可以在工作区中拥有一个工作终端，这样您就不必在拥有 IntelliJ 和终端之间不断切换，如果出于任何原因需要这样做的话。
+
+对于 Mac 用户，您应该可以跳过此设置部分。Windows 用户可能需要做一些工作。此设置假定您是 Windows 用户并且您已安装 Git Bash。
+
+首先，转到文件 → 设置（或使用 Ctrl + Alt + S）![设置](https://sp19.datastructur.es/materials/lab/lab2setup/img4/intellij_settings.png)
+
+在搜索栏中输入“终端”。在那里，输入：
+
+```
+"D:\Git\bin\sh.exe" --login -i
+```
+
+进入“外壳路径”字段。单击确定。
+
+![终端](https://sp19.datastructur.es/materials/lab/lab2setup/img4/terminal_settings_window.png)
+
+要测试您是否已正确设置，请单击 IntelliJ 主窗口底部工具栏上的“终端”按钮。屏幕底部的三分之一现在应该是一个终端，相当于在那里有 Git Bash。**（默认是很丑的powershell，配置好了就变成gitbash的样子了）**
+
+![终端测试](https://sp19.datastructur.es/materials/lab/lab2setup/img4/select_terminal.png)
+
+试着输入一些东西！如果您能够运行类似`ls`的基本命令，`cd` 或者`echo 'Hello world'`您已经完成了！
 
 ### Remote SSH
 
