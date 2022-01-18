@@ -1,19 +1,35 @@
 {    
-//    "files.exclude": {
-//        "**/.classpath": true,
-//        "**/.project": true,
-//        "**/.settings": true,
-//        "**/.factorypath": true
-//    }
-"java.home": "D:\\JDK8\\jdk1.8.0_311",
-//"java.requirements.JDK11Warning": false,
-//"java.semanticHighlighting.enabled": true,
+/**
+"java.configuration.runtimes": [
+    {
+      "name": "JavaSE-1.8",
+      "path": "D:\\JDK8\\jdk1.8.0_311",
+    },
+    
+    {
+      "name": "JavaSE-11",
+      "path": "/path/to/jdk-11",
+    },
+    {
+      "name": "JavaSE-14",
+      "path": "/path/to/jdk-14",
+      "default": true
+    },
+    
+  ]
+*/
+
+/**
+"java.home":"D:\\JDK8\\jdk1.8.0_311",
+"java.requirements.JDK11Warning": false,
+"java.semanticHighlighting.enabled": true,
 "java.project.sourcePaths": ["src"],
 "java.project.outputPath": "bin",
 "files.exclude": {
-    "**/.classpath": true,
-    "**/.project": true,
-    "**/.settings": true,
-    "**/.factorypath": true
+    "/.classpath": true,
+    "/.project": true,
+    "/.settings": true,
+    "/.factorypath": true
 },
+*/
 }

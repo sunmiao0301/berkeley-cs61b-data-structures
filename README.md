@@ -1,5 +1,7 @@
 ## CS-61B-Data-Structures
 
+### [link](https://sp19.datastructur.es/index.html)
+
 ### why this
 
 Fundamental dynamic data structures, including linear lists, queues, trees, and other linked structures; arrays strings, and hash tables. Storage management. Elementary principles of software engineering. Abstract data types. Algorithms for sorting and searching. Introduction to the Java programming language.
@@ -12,7 +14,7 @@ Fundamental dynamic data structures, including linear lists, queues, trees, and 
 - Lab
 - Assignments/Exams
 
-### Java — Install Java 8 on Windows and use it in VSCode
+### Java — Install Java 8 on Windows and use it in VSCode-x64-1.63.2
 
 #####  check whether Java is already installed on your computer
 
@@ -63,7 +65,9 @@ That’s it, now you have Java JDK installed on your system.
 
 ##### Install the Extension Pack for Java
 
-- create a Java project folder and change the setting.json in explorer to this
+##### I am confused about this part and I will try it again to find the best practices
+
+- ~~create a Java project folder and change the setting.json in explorer to this~~
 
   ```json
   {
@@ -75,7 +79,7 @@ That’s it, now you have Java JDK installed on your system.
   }
   ```
 
-- reopen the VSCode and choose "exclude in workspace" to ensure that the VSCode can setting files(like .classpath, .project, etc.) from the explorer.
+- about the notification below, you can find something you need in this [link](https://vscode.one/exclude-vscode-java-settings/)
 
 ![](https://raw.githubusercontent.com/sunmiao0301/Public-Pic-Bed/main/0110globallyorworkspace.png)
 
@@ -83,7 +87,7 @@ That’s it, now you have Java JDK installed on your system.
 
 ![](https://raw.githubusercontent.com/sunmiao0301/Public-Pic-Bed/main/0110extensionfindjdk.png)
 
-- then the setting.json become
+- ~~then the setting.json become~~
 
 ```json
 {
@@ -102,6 +106,38 @@ That’s it, now you have Java JDK installed on your system.
 ```
 
 ##### Done, Happy Coding ./
+
+### How to Create a Java Project for Visual Studio Code
+
+Visual Studio Code doesn´t have this orientation of creating a project because it´s file oriented. It´s on of the diferences with Visual Studio.
+
+So, the solution is: Hit Ctrl+Shift+P to show all commands, then type "Java" and select "Java: Create Java Project"
+
+
+
+### Java — Install Java 8 on Windows and use it in IntelliJ IDEA 2021.3.1
+
+##### Download IntelliJ IDEA
+
+- You’ll need to install the Community Edition of IntelliJ from the [JetBrains](https://www.jetbrains.com/idea/download/) website.
+
+- After selecting the appropriate version for your OS (Mac, Windows, or Linux), click download and wait a few minutes for the file to finish downloading.
+
+##### Install IntelliJ IDEA
+
+- After the download is complete, open the installer file click “**Next”** select the location, and click on “**Next**“.(Dont ask me why your dir's name is JB, bcz the questionnaire from JB)
+
+![](https://raw.githubusercontent.com/sunmiao0301/Public-Pic-Bed/main/0118Jbdir.png)
+
+- Now it will open an installation options window, select all the required options that are shown on the image below, and click “**Next**”.
+
+![](https://raw.githubusercontent.com/sunmiao0301/Public-Pic-Bed/main/0118step2.png)
+
+- Select “**JetBrains**” and click on “**Install**“.
+
+![](https://raw.githubusercontent.com/sunmiao0301/Public-Pic-Bed/main/0118step3.png)
+
+
 
 ### Remote SSH
 
@@ -125,8 +161,9 @@ That’s it, now you have Java JDK installed on your system.
 ```
 
 - Connect to Host in Current Window and Open Folder.
-
 - **p.s. Remember SSH TARGETS --> Configure --> Setting --> clean search bar --> change the Auto Save  to "onFocusChange"**
+
+
 
 ### Calendar
 
