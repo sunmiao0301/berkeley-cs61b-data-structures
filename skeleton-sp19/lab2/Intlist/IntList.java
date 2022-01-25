@@ -1,4 +1,5 @@
 import java.util.Formatter;
+import java.util.List;
 
 /**
  * A naked recursive list of integers, similar to what we saw in lecture 3, but
@@ -64,6 +65,7 @@ public class IntList {
 
     /**
      * Returns a list equal to L with all elements squared. Non-destructive.
+     * what a beautiful code.
      */
     public static IntList squareListRecursive(IntList L) {
         if (L == null) {
@@ -82,7 +84,14 @@ public class IntList {
 
     public static IntList dcatenate(IntList A, IntList B) {
         //TODO:  fill in method
-        return null;
+        if(A == null)
+            return B;
+        IntList ptr = A;
+        while(ptr.rest != null){
+            ptr = ptr.rest;
+        }
+        ptr.rest = B;
+        return A;
     }
 
     /**
@@ -91,7 +100,17 @@ public class IntList {
      */
     public static IntList catenate(IntList A, IntList B) {
         //TODO:  fill in method
-        return null;
+        if(A == null)
+            return  B;
+        IntList newA = new IntList(A.first, null);
+        IntList ret = newA;
+        while(A.rest != null){
+            newA.rest = new IntList(A.rest.first, null);
+            newA = newA.rest;
+            A = A.rest;
+        }
+        newA.rest = B;
+        return ret;
     }
 
 
