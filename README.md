@@ -8,12 +8,12 @@ Fundamental dynamic data structures, including linear lists, queues, trees, and 
 
 ### How learn
 
-- Reading (first)
-- Guide (a summary of this course)
-- Discussing
-- Lab
-- Assignments/Exams
-- Project
+- Reading — 首先完成的
+- Guide — 摘要，可用来回顾
+- Discussing — 忽略
+- Lab — 按照 Reading 要求，按序完成
+- Assignments/Exams — 忽略
+- Project  — 按照 Reading 要求，按序完成，且很重要
 
 ### Java — Install Java 8 on Windows and use it in VSCode-x64-1.63.2
 
@@ -80,7 +80,13 @@ That’s it, now you have Java JDK installed on your system.
   }
   ```
 
-- about the notification below, you can find something you need in this [link](https://vscode.one/exclude-vscode-java-settings/)
+- about the notification below, you can find something you need in this [link](https://vscode.one/exclude-vscode-java-settings/), or look below:
+
+- 这是来自 VS Code 的 Java 扩展的提示：
+
+  https://github.com/redhat-developer/vscode-java/blob/06793b174437fee55985c62917f08da926f37058/src/settings.ts#L73
+
+  我想这是在询问您是否希望那些与 java 相关的项目文件显示在 VS Code 资源管理器侧栏中，或者被隐藏（如果您选择排除，它会将排除项写入您的 VS Code 设置，因此它们被隐藏）。
 
 ![](https://raw.githubusercontent.com/sunmiao0301/Public-Pic-Bed/main/0110globallyorworkspace.png)
 
