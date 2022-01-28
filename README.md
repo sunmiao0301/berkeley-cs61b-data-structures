@@ -2,6 +2,13 @@
 
 ### [sp19.datastructur.es](https://sp19.datastructur.es/index.html)
 
+### Remember
+
+Because this repo is used by two PC, so:
+
+- git xx before do work on it
+- git xx after finish your work on it 
+
 ### why this
 
 Fundamental dynamic data structures, including linear lists, queues, trees, and other linked structures; arrays strings, and hash tables. Storage management. Elementary principles of software engineering. Abstract data types. Algorithms for sorting and searching. Introduction to the Java programming language.
