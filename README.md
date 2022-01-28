@@ -27,8 +27,8 @@ Fundamental dynamic data structures, including linear lists, queues, trees, and 
 | 2.4                       | 数组<br/>二维数组<br/>System.arraycopy方法<br/>注意数组也能为null，如下（length == 0和null是不同的）<br/>public class ClassNameHere {<br/>   public static void main(String[] args) {<br/>      int[] b;<br/>      int[] a = new int[0];<br/>   }<br/>}<br/>反射 |
 | 2.5                       | AList（只支持整型的AList）<br/>Bird[] Alist = (Bird []) new Object[8];（支持通用类型的AList） |
 | 关于单向和双向链表的体会  | [link in my repo](https://github.com/sunmiao0301/Berkeley-CS61B-Data-Structures/blob/main/Reading2.5.md#%E5%81%9A%E5%88%B0%E8%BF%99%E9%87%8C%E6%9C%89%E4%B8%AA%E4%BD%93%E6%82%9F%E5%A6%82%E4%B8%8B) |
-| 3.1                       |                                                              |
-| 关于数组中的 == 和 equals | []()                                                         |
+| 3.1                       | 单元测试                                                     |
+| 关于数组中的 == 和 equals | [link in my repo](https://github.com/sunmiao0301/Berkeley-CS61B-Data-Structures/blob/main/Reading3.1-IGNORE.md#%E5%85%B3%E4%BA%8E%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84--%E5%92%8C-equals%E5%AF%B9%E4%BA%8E%E4%B8%80%E4%B8%AA%E6%95%B4%E5%9E%8B%E6%95%B0%E7%BB%84int-aa%E6%98%AF%E5%85%B6%E5%9C%B0%E5%9D%80a0%E5%B0%B1%E5%B7%B2%E7%BB%8F%E9%80%9A%E8%BF%87%E5%9C%B0%E5%9D%80%E8%BF%90%E7%AE%97%E6%8B%BF%E5%88%B0%E5%85%B6%E5%86%85%E7%9A%84%E5%AE%9E%E9%99%85%E6%95%B4%E6%95%B0%E4%BA%86) |
 | 4.1                       |                                                              |
 | 4.2                       |                                                              |
 | 4.3                       |                                                              |
