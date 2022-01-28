@@ -17,11 +17,71 @@ Fundamental dynamic data structures, including linear lists, queues, trees, and 
 
 ### Contents
 
-| Reading | KeyWords |
-| ------- | -------- |
-|         |          |
-|         |          |
-|         |          |
+| Reading                  | Key                                                          |
+| ------------------------ | ------------------------------------------------------------ |
+| 1.1                      | 静态类型（Java特性）<br>所有 Java 代码都是类的一部分（包括测试主方法void main()) |
+| 1.2                      | 静态方法与非静态方法（亦称类方法和实例方法）<br/>构造函数是一个**初始化**新创建对象的代码块。构造函数类似于java 中的实例方法，但它不是一个方法，因为它没有返回类型。<br/>public static void main(String[] args)与命令行参数 |
+| 2.1                      | 海象之谜<br/>基本数据类型和引用类型<br/>参数传递的本质（仍旧是GRoE） <br/>IntList<br/>迭代和递归 |
+| 2.2                      | 将IntList改名为IntNode，然后基于其创建单向链表SSList<br/>public和private<br/>嵌套类（拥有嵌套类对代码性能没有有意义的影响，只是保持代码组织的工具 -->> 将只有某个类使用的类放到使用它的类中成为嵌套类）<br/>哨兵节点 |
+| 2.3                      | 双向链表DLList<br/>泛型                                      |
+| 2.4                      | 数组<br/>二维数组<br/>System.arraycopy方法<br/>注意数组也能为null，如下（length == 0和null是不同的）<br/>public class ClassNameHere {<br/>   public static void main(String[] args) {<br/>      int[] b;<br/>      int[] a = new int[0];<br/>   }<br/>}<br/>反射 |
+| 2.5                      | AList（只支持整型的AList）<br/>Bird[] Alist = (Bird []) new Object[8];（支持通用类型的AList） |
+| 关于单向和双向链表的体会 | [link in my repo](https://github.com/sunmiao0301/Berkeley-CS61B-Data-Structures/blob/main/Reading2.5.md#%E5%81%9A%E5%88%B0%E8%BF%99%E9%87%8C%E6%9C%89%E4%B8%AA%E4%BD%93%E6%82%9F%E5%A6%82%E4%B8%8B) |
+| 3.1                      |                                                              |
+| 4.1                      |                                                              |
+| 4.2                      |                                                              |
+| 4.3                      |                                                              |
+| 6.1                      |                                                              |
+| 6.2                      |                                                              |
+| 6.3                      |                                                              |
+| 6.4                      |                                                              |
+| 9.1                      |                                                              |
+| 9.2                      |                                                              |
+| 9.3                      |                                                              |
+| 9.4                      |                                                              |
+| 9.5                      |                                                              |
+| 8.3                      |                                                              |
+| 8.4                      |                                                              |
+| 10.1                     |                                                              |
+| 10.2                     |                                                              |
+| 11.1                     |                                                              |
+| 11.2                     |                                                              |
+| 11.3                     |                                                              |
+| 11.4                     |                                                              |
+| 11.5                     |                                                              |
+| 12.1                     |                                                              |
+| 12.2                     |                                                              |
+| 12.3                     |                                                              |
+| 12.4                     |                                                              |
+| 12.5                     |                                                              |
+| 13.1                     |                                                              |
+| 13.2                     |                                                              |
+| 13.3                     |                                                              |
+| 14.1                     |                                                              |
+| 15.1                     |                                                              |
+| 15.2                     |                                                              |
+| 15.3                     |                                                              |
+| 16.1                     |                                                              |
+| 16.2                     |                                                              |
+| 16.3                     |                                                              |
+| 17.1                     |                                                              |
+| 17.2                     |                                                              |
+| 17.3                     |                                                              |
+| 17.4                     |                                                              |
+| 18.1                     |                                                              |
+| 18.2                     |                                                              |
+| 19.1                     |                                                              |
+| 19.2                     |                                                              |
+| 19.3                     |                                                              |
+| 20.1                     |                                                              |
+| 20.2                     |                                                              |
+| 21.1                     |                                                              |
+| 21.2                     |                                                              |
+| 21.3                     |                                                              |
+| 21.4                     |                                                              |
+| None Reading but Guide   |                                                              |
+
+
 
 ### Java — Install Java 8 on Windows and use it in VSCode-x64-1.63.2
 
