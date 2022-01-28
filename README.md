@@ -15,6 +15,14 @@ Fundamental dynamic data structures, including linear lists, queues, trees, and 
 - Assignments/Exams — 忽略
 - Project  — 按照 Reading 要求，按序完成，且很重要
 
+### Contents
+
+| Reading | KeyWords |
+| ------- | -------- |
+|         |          |
+|         |          |
+|         |          |
+
 ### Java — Install Java 8 on Windows and use it in VSCode-x64-1.63.2
 
 #####  check whether Java is already installed on your computer
