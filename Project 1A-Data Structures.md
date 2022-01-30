@@ -75,7 +75,7 @@
 - `add`和`remove`操作不得涉及任何循环或递归。单个这样的操作必须花费“恒定时间”，即执行时间不应取决于双端队列的大小。
 - `get` 必须使用迭代，而不是递归。
 - `size`必须花费恒定的时间。
-- 您的程序在任何给定时间使用的内存量必须与项目数成正比。例如，如果您向双端队列添加 10,000 个项目，然后删除 9,999 个项目，则生成的大小应该更像是一个包含 1 个项目而不是 10,000 个项目的双端队列。不要维护对不再在双端队列中的项目的引用。
+- 您的程序在任何给定时间使用的内存量必须与项目数成正比。例如，如果您向双端队列添加 10,000 个项目，然后删除 9,999 个项目，则生成的大小应该更像是一个包含 1 个项目而不是 10,000 个项目的双端队列。**不要维护对不再在双端队列中的项目的引用。（这句话的意思就是在remove操作的时候，注意null一下删除的位置?但是由于是链式结构，所以只要我不Node tmp = willBeDeletedNode就不会产生引用）**
 
 实现上面“Deque API”部分中列出的所有方法。
 
@@ -90,16 +90,180 @@
 
 虽然这听起来很简单，但有许多设计问题需要考虑，并且您可能会发现实现比您预期的更具挑战性。一定要参考关于双向链表的讲座，特别是关于哨兵节点的幻灯片：[两个哨兵拓扑](https://docs.google.com/presentation/d/1suIeJ1SIGxoNDT8enLwsSrMxcw4JTvJBsMcdARpqQCk/pub?start=false&loop=false&delayms=3000&slide=id.g829fe3f43_0_291)和[循环哨兵拓扑](https://docs.google.com/presentation/d/1suIeJ1SIGxoNDT8enLwsSrMxcw4JTvJBsMcdARpqQCk/pub?start=false&loop=false&delayms=3000&slide=id.g829fe3f43_0_376)。我更喜欢循环方法。**不允许在实现中使用 Java 内置的 LinkedList 数据结构（或任何来自 的数据结构`java.util.\*`）**。
 
+p.s. 循环哨兵拓扑如下：
+
+![](https://raw.githubusercontent.com/sunmiao0301/Public-Pic-Bed/main/0130sentinelinDLList.png)
+
 ```java
+import sun.misc.OSEnvironment;
+
+import java.util.List;
+
 public class LinkedListDeque {
     /**
+     * 这是一个基于链表的类
      * add和remove操作不得涉及任何循环或递归。单个这样的操作必须花费“恒定时间”，即执行时间不应取决于双端队列的大小。
-     * 这个要求我有一点疑问，作为不使用数组辅助的双端链表，怎么可能做到不适用循环或递归且add（任何位置）都是恒定时间呢？
      */
+    public static void main(String[] args){
+        LinkedListDeque list = new LinkedListDeque();
+        System.out.println("is it empty now?");
+        System.out.println(list.isEmpty());
+        System.out.println("add a node 2 at first");
+        list.addFirst(2);
+        System.out.println("is it empty now?");
+        System.out.println(list.isEmpty());
+        System.out.println("add a node 1 at first");
+        list.addFirst(1);
+        System.out.println("the size of list is " + list.size());
+        System.out.println("the first node of list is " + list.first.val);
+        System.out.println("add a node 3 at last");
+        list.addLast(3);
+        System.out.println("the last of list is " + list.last.val);
+        System.out.println("let's print every node");
+        list.printDeque();
+        System.out.println("now, remove the first node");
+        list.removeFirst();
+        System.out.println("and remove the last node");
+        list.removeLast();
+        System.out.println("the only node in list is " + list.get(0).val);
+        System.out.println("the only node in list is " + list.getRecursive(0, list.first).val);
+    }
 
-    public 
+    int size;
+    Node sentinel;// = new Node(301);
+    Node first;// = sentinel;
+    Node last;// = sentinel;
+
+    public static class Node{
+        //Item<T> item = new Item<>();
+        int val;
+        Node pre;
+        Node next;
+        Node(int v){
+            val = v;
+            pre = null;
+            next = null;
+        }
+        Node(int v, Node p, Node n){
+            val = v;
+            pre = p;
+            next = n;
+        }
+    }
+    public LinkedListDeque(){
+        size = 0;
+        sentinel = new Node(301);
+        sentinel.next = sentinel;
+        sentinel.pre = sentinel;
+        first = sentinel.next;
+        last = sentinel.pre;
+
+    }//创建一个空的链表双端队列。
+
+    public LinkedListDeque(LinkedListDeque other){
+        //other.sentinel = new Node(301);
+        //while()
+    }//创建other,创建深层副本意味着您创建一个全新的`LinkedListDeque`，具有完全相同的项目`other`。但是，它们应该是不同的对象，即如果您更改了，您创建`other`的新对象也不应该更改。`LinkedListDeque`（编辑 2/6/2018：为该复制构造函数提供解决方案的演练可在https://www.youtube.com/watch?v=JNroRiEG7U4获得）
+
+    public /** T */ Node getRecursive(int index, Node first){
+        if(index == 0)
+            return first;
+        return getRecursive(index--, first.next);
+    }//与 get 相同，但使用递归。
+
+    public void addFirst (int x){//(T item){
+        Node p = new Node(x, sentinel, first);
+        sentinel.next = p;
+        first.pre = p;
+        first = p;
+        last = sentinel.pre;
+        size++;
+    }//在双端队列的前面添加一个类型的项目。
+
+    public void addLast(int x){//(T item){
+        Node p = new Node(x, last, sentinel);
+        sentinel.pre = p;
+        last.next = p;
+        last = p;
+        first = sentinel.next;
+        size++;
+    }//在双端队列的后面添加一个类型的项目。
+
+    public boolean isEmpty(){
+        if(size == 0)
+            return true;
+        return false;
+    }//如果 deque 为空，则返回 true，否则返回 false。
+
+    public int size(){
+        return size;
+    }//返回双端队列中的项目数。
+
+    public void printDeque(){
+        Node p = first;
+        while(p != sentinel){
+            System.out.print(p.val + " ");
+            p = p.next;
+        }
+        System.out.println();
+    }//从头到尾打印双端队列中的项目，用空格分隔。打印完所有项目后，打印出一个新行。
+
+    public /** T */ Node removeFirst(){
+        sentinel.next = sentinel.next.next;
+        sentinel.next.pre = sentinel;
+        first = sentinel.next;
+        //first = sentinel.next;
+        //first.pre = sentinel;
+        size--;
+        return first;
+    }//删除并返回双端队列前面的项目。如果不存在这样的项目，则返回 null。
+
+    public /** T */ Node removeLast() {
+        sentinel.pre = sentinel.pre.pre;
+        sentinel.pre.next = sentinel;
+        last = sentinel.pre;
+        //last = sentinel.pre;
+        //last.next = sentinel;
+        size--;
+        return last;
+    }//删除并返回双端队列后面的项目。如果不存在这样的项目，则返回 null。
+
+    public /** T */ Node get(int index){
+        if(index >= size || index < 0)
+            return null;
+        Node p = first;
+        while (index > 0){
+            p = p.next;
+            index--;
+        }
+        return p;
+    }//获取给定索引处的项目，其中 0 是前面，1 是下一个项目，依此类推。如果不存在这样的项目，则返回 null。不能改变双端队列！
 }
+```
 
+测试结果如下：
+
+```bash
+D:\Java\JDK8\bin\java.exe 
+
+is it empty now?
+true
+add a node 2 at first
+is it empty now?
+false
+add a node 1 at first
+the size of list is 2
+the first node of list is 1
+add a node 3 at last
+the last of list is 3
+let's print every node
+1 2 3 
+now, remove the first node
+and remove the last node
+the only node in list is 2
+the only node in list is 2
+
+Process finished with exit code 0
 ```
 
 
@@ -116,7 +280,7 @@ public class LinkedListDeque {
 
 - `add`和`remove`必须花费恒定的时间，除非在调整大小操作期间。
 - `get`并且`size`必须花费恒定的时间。
-- 数组的起始大小应为 8。
+- **数组的起始大小应为 8。**
 - 您的程序在任何给定时间使用的内存量必须与项目数成正比。例如，如果您向双端队列添加 10,000 个项目，然后删除 9,999 个项目，那么您不应该仍然使用长度为 10,000 的数组。对于长度为 16 或更长的数组，您的使用系数应始终至少为 25%。对于较小的阵列，您的使用系数可以任意低。
 
 实现上面“Deque API”部分中列出的所有方法。
@@ -132,6 +296,16 @@ public class LinkedListDeque {
 我们*强烈建议*您在本练习中将阵列视为圆形。换句话说，如果你的前端指针位于零位置，并且你 `addFirst`，前端指针应该循环回到数组的末尾（因此双端队列中的新前端项将是基础数组中的最后一项）。与非循环方法相比，这将导致更少的头痛。有关详细信息，请参阅[项目 1 演示幻灯片](https://docs.google.com/presentation/d/1XBJOht0xWz1tEvLuvOL4lOIaY0NSfArXAvqgkrx0zpc/edit#slide=id.g1094ff4355_0_450) 。
 
 正确调整数组的大小**非常棘手**，需要深思熟虑。尝试手工绘制各种方法。您可能需要相当长的时间才能提出正确的方法，我们鼓励您与您的同学或助教讨论重要的想法。确保您的实际实施**是由您一个人**完成的。
+
+```java
+/**
+ * 想了一下 想到了实现数组链表 并且支持addFirst的方法 但是具体实现确实比较麻烦 先放一下
+ * 就是将其视为一个环形，比如对于初始的8内存数组，前插入一个1，后插入一个8，那么数组内部应该是()
+ * {1, 0, 0, 0, 0, 0, 0, 8}
+ */
+```
+
+
 
 ## 测试
 

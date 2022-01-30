@@ -1,5 +1,7 @@
 ## Reading-2.2-SLLists
 
+p.s. 关于内部类，我有一个问题，见[Java Visualizer](https://cscircles.cemc.uwaterloo.ca//java_visualize/#code=public+class+ClassNameHere+%7B%0A+++public+static+void+main(String%5B%5D+args)+%7B%0A++++++//ClassNameHere.ListNode+b+%3D+ClassNameHere.new+ListNode()%3B%0A++++++ListNode+a+%3D+new+ListNode(1)%3B%0A++++++a.next+%3D+new+ListNode(2)%3B%0A++++++a.next.next+%3D+new+ListNode(3)%3B%0A++++++a.next.next.next+%3D+new+ListNode(4)%3B%0A++++++ClassNameHere.reverseList(a)%3B%0A++++++%0A+++%7D%0A++++public+static+ListNode+reverseList(ListNode+head)+%7B%0A++++++++if+(head+%3D%3D+null+%7C%7C+head.next+%3D%3D+null)+%7B%0A++++++++++++return+head%3B%0A++++++++%7D%0A++++++++ListNode+newHead+%3D+reverseList(head.next)%3B%0A++++++++head.next.next+%3D+head%3B%0A++++++++head.next+%3D+null%3B%0A++++++++return+newHead%3B%0A++++%7D%0A+++%0A+++/**%0A+++OutClass.InnerClass+obj+%3D+outClassInstance.new+InnerClass()%3B+%0A+++//%E6%B3%A8%E6%84%8F%E6%98%AF%E5%A4%96%E9%83%A8%E7%B1%BB%E5%AE%9E%E4%BE%8B.new%EF%BC%8C%E5%86%85%E9%83%A8%E7%B1%BB%EF%BC%9A+++%0A+++AAA.StaticInner+in+%3D+new+AAA.StaticInner()%3B%0A+++//%E6%B3%A8%E6%84%8F%E6%98%AF%E5%A4%96%E9%83%A8%E7%B1%BB%E6%9C%AC%E8%BA%AB%EF%BC%8C%E9%9D%99%E6%80%81%E5%86%85%E9%83%A8%E7%B1%BB%0A%0A+++*/%0A+++//%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E9%87%8C%E7%9A%84%E5%86%85%E9%83%A8%E7%B1%BBListNode%E5%BF%85%E9%A1%BB%E6%98%AFstatic%EF%BC%9F%0A+++public+/*static*/+class+ListNode%7B%0A++++++++int+val%3B%0A++++++++ListNode+next%3B%0A++++++++ListNode(int+v)%7B%0A++++++++val+%3D+v%3B%0A++++++++next+%3D+null%3B%0A++++++%7D%0A+++%7D%0A%7D&mode=edit)
+
 在第 2.1 章中，我们构建了`IntList`类，一个列表数据结构，从技术上讲，它可以完成列表可以做的所有事情。然而，在实践中，`IntList`它的缺点是使用起来相当笨拙，导致代码难以阅读和维护。
 
 从根本上说，问题在于这`IntList`就是我所说的**裸递归**数据结构。为了`IntList`正确使用，程序员必须理解和利用递归，即使是简单的列表相关任务。这限制了它对新手程序员的用处，并可能引入程序员可能遇到的全新类棘手错误，具体取决于`IntList`类提供的帮助方法类型。
@@ -213,7 +215,7 @@ public class SLList {
 
 拥有嵌套类对代码性能没有有意义的影响，只是保持代码组织的工具。有关嵌套类的更多信息，请参阅[Oracle 的官方文档](https://docs.oracle.com/javase/tutorial/java/javaOO/nested.html)。
 
-**如果嵌套类不需要使用任何实例方法或变量`SLList`，则可以声明嵌套类`static`，如下所示。将嵌套类声明为`static`意味着静态类中的方法不能访问封闭类的任何成员。在这种情况下，这意味着`IntNode`中的任何方法都无法访问`first`、`addFirst`或`getFirst`。**
+**如果嵌套类不需要使用外部类`SLList`的任何实例方法或变量，则可以声明`static`嵌套类，如下所示。将嵌套类声明为`static`意味着静态类中的方法不能访问封闭类的任何成员。在这种情况下，这意味着`IntNode`中的任何方法都无法访问`first`、`addFirst`或`getFirst`。**
 
 ```java
 public class SLList {
