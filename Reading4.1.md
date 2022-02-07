@@ -58,7 +58,7 @@ public static String longest(AList<String> list)
 - 它需要维护更多的代码，这意味着如果您想对`longest`方法进行小的更改（例如更正错误），则需要在方法中针对每种类型的列表进行更改。
 - 如果我们想创建更多的列表类型，我们将不得不为每个新的列表类复制方法。
 
-##### 正是因为重载丑陋，所以还有接口的方案如下
+##### 正是因为重载丑陋，所以针对重载解决的这个问题，还有接口的解决方案如下：
 
 ## 上位词、下位词和接口继承
 
@@ -238,6 +238,14 @@ public static void main(String[] args) {
 - **当它运行时，会创建 SLList 并将其地址存储在 someList 变量中。然后将字符串“elk”插入到 addFirst 引用的 SLList 中。**
 
 答案是最后一个
+
+```java
+//就如同：
+List<Integer> list = new LinkedList<>();
+list.addFirst()
+```
+
+
 
 ## 实现继承
 

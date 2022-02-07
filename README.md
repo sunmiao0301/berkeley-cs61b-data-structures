@@ -7,7 +7,7 @@
 Because this repo is used by two PC, so:
 
 - git xx before do work on it
-- git xx after finish your work on it 
+- git push after finish your work on it 
 
 ### why this
 
@@ -36,9 +36,10 @@ Fundamental dynamic data structures, including linear lists, queues, trees, and 
 | 关于单向和双向链表的体会  | [link in my repo](https://github.com/sunmiao0301/Berkeley-CS61B-Data-Structures/blob/main/Reading2.5.md#%E5%81%9A%E5%88%B0%E8%BF%99%E9%87%8C%E6%9C%89%E4%B8%AA%E4%BD%93%E6%82%9F%E5%A6%82%E4%B8%8B) |
 | 3.1                       | 单元测试                                                     |
 | 关于数组中的 == 和 equals | [link in my repo](https://github.com/sunmiao0301/Berkeley-CS61B-Data-Structures/blob/main/Reading3.1-IGNORE.md#%E5%85%B3%E4%BA%8E%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84--%E5%92%8C-equals%E5%AF%B9%E4%BA%8E%E4%B8%80%E4%B8%AA%E6%95%B4%E5%9E%8B%E6%95%B0%E7%BB%84int-aa%E6%98%AF%E5%85%B6%E5%9C%B0%E5%9D%80a0%E5%B0%B1%E5%B7%B2%E7%BB%8F%E9%80%9A%E8%BF%87%E5%9C%B0%E5%9D%80%E8%BF%90%E7%AE%97%E6%8B%BF%E5%88%B0%E5%85%B6%E5%86%85%E7%9A%84%E5%AE%9E%E9%99%85%E6%95%B4%E6%95%B0%E4%BA%86) |
-| 4.1                       |                                                              |
-| 4.2                       |                                                              |
-| 4.3                       |                                                              |
+| 4.1                       | 丑陋的重载和优雅的接口<br>对于SLList和AList，尽管他们方法相同，但是还是两个类，彼此没有联系，此时如果想要写longest()函数，就必须用重载<br>`public static String longest(SLList<String> list)`<br>`public static String longest(AList<String> list)`<br>但是，如果用上接口如下<br>`public interface List61B<Item> `<br>`public class AList<Item> implements List61B<Item>`<br>`public class SLList<Item> implements List61B<Item>`<br>那么longest()函数就可以写成<br>`public static String longest(List61B<Item> list) `<br>并且此时longest()方法，SLList和AList都可以使用<br><br>**重写 标记@Override**<br>重载 Overload<br><br>区分接口继承和extends<br><br>动态类型和静态类型<br>**Java运行重写方法时检查动态类型，运行重载方法时检查静态类型，以此来决定调用哪个方法。** |
+| 4.2                       | **`extends`关键字让我们保留 SLList 的原始功能，同时使我们能够进行修改和添加额外的功能。**<br>通过使用`extends`关键字，子类继承父类的所有**成员**。“成员”包括：<br>- 所有实例和静态变量<br>- 所有方法<br>- 所有嵌套类<br>- **注意构造函数是不会被继承的，因为子类不能直接访问父类的私有成员。**<br><br>对于子类在重写父类函数时，想要调用父类原函数的情况，需要用到super关键词。<br>子类的构造函数则直接super();然后补充新的情况即可。如果选择不这样做，Java 会自动为我们调用父类的无参构造函数。<br><br>Java 中的每个类都是 Object 类或是`extends` Object 类得来的后代(Object 类提供了每个 Object 都应该能够执行的操作，例如`.equals(Object obj)`、`.hashCode()`和`toString()`)<br>bark() 和 barkMany()<br><br>类型检查和强制转型Casting<br>Java8新特性 |
+| 4.3                       | *我们可以创建一个接口来保证任何实现类，比如 Dog，都包含一个比较方法，我们称之为`compareTo`. —— 这就是Java工程师一年写几百个接口的原因吗？<br>unfinished* |
+| 4.4                       | Abstract Data Type<br>![双端队列](https://joshhug.gitbooks.io/hug61b/content/assets/deque.png)在上面的图中，Deque是接口。p.s.Deque同时也被称为抽象数据类型<br>java.util 库中包含三个最重要的 ADT：<br>- List，一个流行的实现是[ArrayList](https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html)<br>- Set，一个流行的实现是[HashSet](https://docs.oracle.com/javase/7/docs/api/java/util/HashSet.html)<br>- Map，一个流行的实现是[HashMap](https://docs.oracle.com/javase/8/docs/api/java/util/HashMap.html)<br>![H](https://joshhug.gitbooks.io/hug61b/content/assets/collection_hierarchy.png)在上图中，白框是接口。蓝色框是具体的类。 <br><br>抽象类<br>抽象类可以做接口可以做的所有事情，甚至更多。**如有疑问，请尝试使用接口**以降低复杂性。 |
 | 6.1                       |                                                              |
 | 6.2                       |                                                              |
 | 6.3                       |                                                              |
