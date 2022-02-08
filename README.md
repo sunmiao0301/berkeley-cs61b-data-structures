@@ -6,7 +6,7 @@
 
 Because this repo is used by two PC, so:
 
-- `git fetch origin main && git pull` before do work on it
+- `git pull` before do work on it
 
 - `git add ./ && git commit -m "xx" && git push` after finish your work on this repo
 
@@ -82,7 +82,7 @@ Because this repo is used by two PC, so:
     nothing to commit, working tree clean
     
     /d/repo/Berkeley-CS61B-Data-Structures (main)
-    $ git pull
+    $ git pull  ### 事实上，git pull == git fetch && git merge 但是我之前已经运行了git fetch，所以此时只运行了git merge
     Updating 6c83f74..7db9c01
     Fast-forward
      Project 1A-Data Structures.md                      |   184 +-
