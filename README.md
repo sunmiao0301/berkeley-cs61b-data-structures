@@ -126,7 +126,7 @@ Because this repo is used by two PC, so:
 
 Fundamental dynamic data structures, including linear lists, queues, trees, and other linked structures; arrays strings, and hash tables. Storage management. Elementary principles of software engineering. Abstract data types. Algorithms for sorting and searching. Introduction to the Java programming language.
 
-### How learn
+### How to learn
 
 - Reading — 首先完成的
 - Guide — 摘要，可用来回顾
