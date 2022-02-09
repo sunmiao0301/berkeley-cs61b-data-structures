@@ -37,7 +37,7 @@
   public class SLList<Blorp> implements List61B<Blorp>
   ```
 
-这就是我们可能使用`List61B`类型的方式：
+这就是我们使用`List61B`类型的方式：
 
 ```java
 List61B<Integer> L = new AList<>();
@@ -46,6 +46,8 @@ L.addLast(10);
 L.addLast(15);
 L.print();
 ```
+
+
 
 ### 真实 Java 代码中的List
 
@@ -81,7 +83,7 @@ public class Example {
 
 ## Sets
 
-集合是唯一元素的集合——每个元素只能有一个副本。也没有秩序感。
+集合是唯一元素的集合——每个元素只能有一个副本。也没有顺序。
 
 ##### Java
 

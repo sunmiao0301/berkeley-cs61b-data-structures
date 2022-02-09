@@ -153,10 +153,12 @@ Fundamental dynamic data structures, including linear lists, queues, trees, and 
 | 4.2                       | **`extends`关键字让我们保留 SLList 的原始功能，同时使我们能够进行修改和添加额外的功能。**<br>通过使用`extends`关键字，子类继承父类的所有**成员**。“成员”包括：<br>- 所有实例和静态变量<br>- 所有方法<br>- 所有嵌套类<br>- **注意构造函数是不会被继承的，因为子类不能直接访问父类的私有成员。**<br><br>对于子类在重写父类函数时，想要调用父类原函数的情况，需要用到super关键词。<br>子类的构造函数则直接super();然后补充新的情况即可。如果选择不这样做，Java 会自动为我们调用父类的无参构造函数。<br><br>Java 中的每个类都是 Object 类或是`extends` Object 类得来的后代(Object 类提供了每个 Object 都应该能够执行的操作，例如`.equals(Object obj)`、`.hashCode()`和`toString()`)<br>bark() 和 barkMany()<br><br>类型检查和强制转型Casting<br>Java8新特性 |
 | 4.3                       | *我们可以创建一个接口来保证任何实现类，比如 Dog，都包含一个比较方法，我们称之为`compareTo`. —— 这就是Java工程师一年写几百个接口的原因吗？<br>unfinished* |
 | 4.4                       | Abstract Data Type<br>![双端队列](https://joshhug.gitbooks.io/hug61b/content/assets/deque.png)在上面的图中，Deque是接口。p.s.Deque同时也被称为抽象数据类型<br>java.util 库中包含三个最重要的 ADT：<br>- List，一个流行的实现是[ArrayList](https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html)<br>- Set，一个流行的实现是[HashSet](https://docs.oracle.com/javase/7/docs/api/java/util/HashSet.html)<br>- Map，一个流行的实现是[HashMap](https://docs.oracle.com/javase/8/docs/api/java/util/HashMap.html)<br>![H](https://joshhug.gitbooks.io/hug61b/content/assets/collection_hierarchy.png)在上图中，白框是接口。蓝色框是具体的类。 <br><br>抽象类<br>抽象类可以做接口可以做的所有事情，甚至更多。**如有疑问，请尝试使用接口**以降低复杂性。 |
-| 6.1                       |                                                              |
-| 6.2                       |                                                              |
-| 6.3                       |                                                              |
-| 6.4                       |                                                              |
+| 6.1                       | ArraySet<br>default关键词                                    |
+| 6.2                       | 抛出异常 Throwing Exceptions <br>`throw new ExceptionObject(parameter1, ...)`<br>捕捉异常 Catch Exceptions（关键词try和catch保护程序免受Exception的打断）<br>`try {`<br>    `d.receivePat();`<br/>`} catch (Exception e) {`<br/>    `System.out.println("Tried to pat: " + e);`<br>`}` |
+| 6.3                       | 为一个ArraySet类配备enhanced for loop的经验规律是<br>1）ArraySet应该implements Iterable<T>；<br>2）为ArraySet增加一个iterator()方法，并且这个方法返回一个Iterator<T>类的对象（也就是下一步中的ArraySetIterator类的对象）<br>3）为ArraySet新增一个实现Iterator<T>接口的嵌套类ArraySetIterator类，并且应该具有一个hasNext()和next()方法 |
+| 6.4                       | Object类的`String toString()`和 `boolean equals(Object obj)`方法<br>对于`toString()`需要注意<br>1）由于是无参方法，我们直接对重写该方法的类的数据结构进行操作即可？<br><br>对于`equals(Object o)方法`需要注意<br>1）与null之间是否等于问题，我们必须使用 == ，否则会得到一个空指针错误<br>2）null无法调用方法，所以当`x == null`的时候，`x.equals(null)`·仍然是false |
+| 7.1                       | 使用包<br>创建包<br>默认包（任何在文件顶部没有显式包名的 Java 类都被自动认为是“默认包“的一部分）<br> 生成.jar 文件将包含您想共享的程序的所有 .class 文件，以及一些其他附加信息 |
+| 7.2                       | 访问控制<br>当没有访问修饰符时的几个细节<br>1）没有访问修饰符时，称为包私有，Class和Package可以访问，Subclass和World不可以<br>2）没有包声明的代码都属于默认包的一部分，并且由于是”包私有“，所以彼此可以访问<br>3）一个特殊情况：对于接口，其没有包声明时候的访问控制不是包私有，**是公共的**。 |
 | 9.1                       |                                                              |
 | 9.2                       |                                                              |
 | 9.3                       |                                                              |
