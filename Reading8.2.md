@@ -1,0 +1,535 @@
+## Reading 8.2
+
+## 渐近学 I：渐近分析导论
+
+我们可以从两个不同的角度来考虑编写高效程序的过程：
+
+1. 编程成本
+
+   （迄今为止课程中的所有内容）
+
+   1. 您开发程序需要多长时间？
+   2. 阅读或修改代码有多容易？
+   3. 您的代码的可维护性如何？**（非常重要——大部分成本来自维护和可扩展性，而不是开发！）**
+
+2. 执行成本
+
+   （从现在开始的课程中的所有内容）
+
+   1. **时间复杂度**：你的程序执行需要多少时间？
+   2. **空间复杂度**：你的程序需要多少内存？
+
+### 算法成本示例
+
+目标：确定***排序后***的数组是否包含任何重复项。
+
+**愚蠢的算法**：考虑***每一***对，如果匹配则返回真！
+
+**更好的算法：**利用我们数组的***排序***特性。
+
+- 我们知道，如果有重复，它们必须彼此相邻。
+- 比较邻居：第一次看到匹配时返回 true！如果没有更多项目，则返回 false。
+
+我们可以看到，Silly 算法似乎比 Better 算法做了更多不必要的、多余的工作。但是还有多少工作？我们如何实际量化或确定程序的效率？本章将为您提供比较各种算法效率的正式技术和工具！
+
+### 运行时间的度量特征 Runtime Characterization
+
+为了研究这些技术，我们将描述以下两个函数 dup1 和 dup2 的运行时间。这是我们上面讨论的查找重复项的两种不同方法。
+
+关于我们的度量特征需要记住的事情：
+
+- 它们应该简单且数学严谨。
+- 他们还应该清楚地证明 dup2 优于 dup1。
+
+```java
+//Silly Duplicate: compare everything
+public static boolean dup1(int[] A) {  
+  for (int i = 0; i < A.length; i += 1) {
+    for (int j = i + 1; j < A.length; j += 1) {
+      if (A[i] == A[j]) {
+         return true;
+      }
+    }
+  }
+  return false;
+}
+
+//Better Duplicate: compare only neighbors
+public static boolean dup2(int[] A) {
+  for (int i = 0; i < A.length - 1; i += 1) {
+    if (A[i] == A[i + 1]) { 
+      return true; 
+    }
+  }
+  return false;
+}
+```
+
+### 衡量计算成本的技术
+
+**技术1**：使用客户端程序以秒为单位测量执行时间（即实际查看我们的程序在物理秒内运行的速度）
+
+*程序*
+
+- 使用物理秒表
+- 或者，Unix 有一个测量执行时间的内置`time`命令。Unix time command
+- 或者，普林斯顿标准库有一个`stopwatch`类
+
+*观察*
+
+![](https://raw.githubusercontent.com/sunmiao0301/Public-Pic-Bed/main/0211time.png)
+
+- 随着我们输入大小的增加，我们可以看到`dup1`需要更长的时间才能完成，而`dup2`以相对大致相同的速度完成。
+
+  
+
+*优点与缺点*
+
+- 优点：非常容易测量（只需运行秒表）。含义很清楚（查看完成所需的实际时间长度）。
+- 缺点：可能需要很多时间来测试。结果也可能因您运行程序的机器类型、编译器、输入数据等而有所不同。
+
+那么这种方法如何与我们的目标相匹配呢？这很简单，所以这很好，但在数学上并不严谨。此外，基于机器、编译器、输入等的差异意味着结果可能无法清楚地表明 dup1 和 dup2 之间的关系。
+
+How about another METHOD?
+
+#### 技术2
+
+**技术 2A**：计算大小为 **N = 10,000** 的数组的可能操作。
+
+```java
+for (int i = 0; i < A.length; i += 1) {
+  for (int j = i+1; j < A.length; j += 1) {
+    if (A[i] == A[j]) {
+       return true;
+    }
+  }
+}
+return false;
+```
+
+*程序*
+
+- 查看您的代码及其使用的各种操作（即赋值、增量等）
+- 计算每个操作执行的次数。
+
+*观察*
+
+![](https://raw.githubusercontent.com/sunmiao0301/Public-Pic-Bed/main/0211dup1a.png)
+
+- 有些计数变得难以计数。
+- 我们是如何得到这些数字的？它可能是复杂而乏味的。
+
+*优点与缺点*
+
+- 优点：独立于机器（大部分情况下）。模型中捕获的输入依赖性。
+- 缺点：计算繁琐。数组大小是任意的（我们计算了 N = 10,000 - 但是对于较大的 N 呢？对于较小的 N？那些计数有多少？）。操作数并不能告诉您执行某个操作所需的实际时间（有些操作可能比其他操作执行得更快）。
+
+所以也许这个从上面的时序模拟中解决了我们的一些缺点，但它也有自己的问题。
+
+**技术 2B**：根据输入**数组大小 N（符号计数）**计算可能的操作
+
+![](https://raw.githubusercontent.com/sunmiao0301/Public-Pic-Bed/main/0211dup1.png)
+
+*优点与缺点*
+
+- 优点：仍然独立于机器（仅计算操作次数）。输入依赖性仍然在模型中捕获。
+
+  #### 但是现在，它告诉我们我们的算法如何根据输入的大小进行缩放。
+
+- 缺点：计算更加繁琐。仍然没有告诉我们实际花费的时间！
+
+------
+
+**检查点：**将技术 2A 和 B 应用于`dup2`
+
+- 对于以下代码，针对 N 计算每个操作的计数。
+- 预测每一个的***粗略大小！***
+
+```java
+for (int i = 0; i < A.length - 1; i += 1){
+  if (A[i] == A[i + 1]) { 
+    return true; 
+  }
+}
+return false;
+```
+
+| **operation**       | **symbolic count** | **count, N=10000** |
+| :------------------ | :----------------- | :----------------- |
+| **i = 0**           | **1**              | **1**              |
+| **less than (<)**   | 0-N                | 1-10000            |
+| **increment (+=1)** | 0-N                | 0-10000            |
+| **equals (==)**     | 1-N                | 1-10000            |
+| **array accesses**  | 2-2N               | 2-20000            |
+
+**Answer**:
+
+| **operation**       | **symbolic count** | **count, N=10000** |
+| :------------------ | :----------------- | :----------------- |
+| **i = 0**           | 1                  | 1                  |
+| **less than (<)**   | 0 to N             | 0 to 10000         |
+| **increment (+=1)** | 0 to N - 1         | 0 to 9999          |
+| **equals (==)**     | 1 to N - 1         | 1 to 9999          |
+| **array accesses**  | 2 to 2N - 2        | 2 to 19998         |
+
+注意：如果你稍微偏离也没关系——如前所述，你需要***粗略的***估计。
+
+### CheckPoint
+
+**检查点**：现在，考虑以下两个填写的表格，您认为哪种算法更好，为什么？ `dup1`
+
+| **operation**       | **symbolic count**             | **count, N=10000** |
+| :------------------ | :----------------------------- | :----------------- |
+| **i = 0**           | 1                              | 1                  |
+| **j = i + 1**       | 1 to N*N*                      | 1 to 10000         |
+| **less than (<)**   | 2 to (N^2+3N+2*N*2+3*N*+2)/2/2 | 2 to 50,015,001    |
+| **increment (+=1)** | 0 to (N^2+N*N*2+*N*)/2/2       | 0 to 50,005,000    |
+| **equals (==)**     | 1 to (N^2-N*N*2−*N*)/2/2       | 1 to 49,995,000    |
+| **array accesses**  | 2 to N^2-N*N*2−*N*             | 2 to 99,990,000    |
+
+```
+dup2
+```
+
+| **operation**       | **symbolic count** | **count, N=10000** |
+| :------------------ | :----------------- | :----------------- |
+| **i = 0**           | 1                  | 1                  |
+| **less than (<)**   | 0 to N             | 0 to 10000         |
+| **increment (+=1)** | 0 to N - 1         | 0 to 9999          |
+| **equals (==)**     | 1 to N - 1         | 1 to 9999          |
+| **array accesses**  | 2 to 2N - 2        | 2 to 19998         |
+
+### 答案（以及知道runtime随着N缩放很重要）
+
+`dup2`更好！但为什么？
+
+- 答案：实现相同目标所需的操作更少。
+- 更好的答案：算法在最坏的情况下可以更好地扩展  (N^2 + 3N + 2) / 2 vs. N
+- 更更好的答案：抛物线 N^2 增长比线性 N 快
+  - 注意：这与我们的“更好”答案的想法相同，但它提供了更一般的几何直觉。
+
+![](https://raw.githubusercontent.com/sunmiao0301/Public-Pic-Bed/main/0211Nboom.png)
+
+
+
+### 上面的运行时尺度标准已经很好了，但是还不够简单。所以我们将继续对其进行简化。
+
+### 渐近行为
+
+在大多数情况下，我们只关心非常大的 N（渐近行为）会发生什么。我们想考虑哪种类型的算法最适合处理大量数据，例如下面列出的示例：
+
+- 模拟数十亿个相互作用的粒子
+- 拥有数十亿用户的社交网络
+- 编码数十亿字节的视频数据
+
+扩展性好的算法（即看起来像线）比扩展性相对较差（即看起来像抛物线）的算法具有更好的**渐近（非常大的N）**运行时行为。
+
+### 抛物线与线
+
+常数呢？如果我们有函数 2N^2 对比 500N，2N^2在某些情况下，操作会更快，例如 N = 4（32 对 20,000 次操作）。
+
+- 是的！对于一些小N，2N^2可能小于500N
+- 然而，当N变大，2N^2将占主导地位。
+- 比如 N = 10,000 → 2*100000000 与 5 * 1000000 进行对比。
+
+重要的是我们的图表的“形状”（即抛物线 vs. 线性） 
+
+让我们（现在）非正式地将我们的图表的形状称为“增长顺序”。
+
+### 返回我们最开始提出的问题 — 找到数组中是否存在相同的两个数
+
+回到我们最初的目标，即描述`dup1`vs`dup2`的运行时间。
+
+- 它们应该**简单**且**数学严谨。**
+- 他们还应该清楚地证明**dup2 优于 dup1。**
+
+我们完成了第二个任务！我们能够清楚地看到它的`dup2`表现优于`dup1`. 然而，我们并没有以非常简单或数学上严谨的方式来做这件事。
+
+然而，我们确实谈到了如何`dup1`表现“像”抛物线，并`dup2`表现“像”一条线。现在，通过应用这四种简化，我们将更正式地了解这些陈述的含义。
+
+#### 直观的简化 1：只考虑最坏的情况
+
+在比较算法时，我们通常只关心最坏的情况（尽管我们会在本课程后面看到一些例外情况）。
+
+**检查点**：增长顺序识别
+
+考虑以下算法的计数。您预计算法运行时的增长顺序是什么？
+
+- N [linear]
+- N^2 [quadratic]
+- N^3 [cubic]
+- N^6 [sextic]
+
+| **operation**        | **count**   |
+| :------------------- | :---------- |
+| **less than (<)**    | 100N^2+3*N* |
+| **greater than (>)** | N^3+1       |
+| **and (&&)**         | 5,000       |
+
+**答**：立方（N^3）！
+
+- 为什么？这是一个观点：
+- Suppose the < operator takes \alpha*α* nanoseconds, the > operator takes \beta*β* nanoseconds, and && takes \gamma*γ* nanoseconds.
+- Total time is (100N^2+3N)+β(2N^3+1)+5000γ nanoseconds.
+- For very large N, the β * 2N^3 term is much larger than the others.
+  - 如果有帮助，您可以从微积分的角度来考虑它。
+  - 当 N 接近无穷大时会发生什么？当它变得超级大？哪个术语最终占主导地位？
+  - 非常**重要的**一点/观察来理解为什么三次方要大得多！
+
+------
+
+#### 直观的简化2：将注意力限制在一个操作上
+
+选择一些有代表性的操作作为整体运行时间的主要参照部分，比如对于：
+
+```java
+for(int i = 0; i < n; i++){
+    a++;
+}
+```
+
+- 正确选择：
+  - i < n
+  - i++
+  - a++
+- 错误选择：
+  - int i = 0
+
+我们选择的操作可以称为“**cost model**”。
+
+#### 直观的简化 3：消除低阶项
+
+直接忽略低阶项！
+
+**健全性检查**：为什么这有意义？（与上面的检查点有关！）
+
+#### 直观的简化 4：消除乘法常数
+
+忽略乘法常数。
+
+- 为什么？没有实际意义！
+- 请记住，通过选择一个具有代表性的操作，我们已经“丢弃”了一些信息
+- 一些操作有3N^2，N^2/2 等等。一般来说，它们都是N^2的一份子！
+
+这一步也和前面的例子有关 ：500N 对比 2N^2
+
+### 一句话总结
+
+- 只考虑最坏的情况。N —> ∞
+- 选择一个有代表性的操作（又名：成本模型）
+- 忽略低阶项
+- 忽略乘法常数。
+
+------
+
+**检查点**
+
+将这四个步骤应用于`dup2`：
+
+| **operation**       | **count**   |
+| :------------------ | :---------- |
+| **i = 0**           | 1           |
+| **less than (<)**   | 0 to N      |
+| **increment (+=1)** | 0 to N - 1  |
+| **equals (==)**     | 1 to N - 1  |
+| **array accesses**  | 2 to 2N - 2 |
+
+填写到下表中：
+
+| **operation** | **worst case orders of growth** |
+| :------------ | :------------------------------ |
+|               |                                 |
+
+**示例答案：**
+
+| **operation**       | **worst case orders of growth** |
+| :------------------ | :------------------------------ |
+| **less than (<)**   | 0 to N                          |
+| **increment (+=1)** | 0 to N - 1                      |
+| **equals (==)**     | 1 to N - 1                      |
+| **array accesses**  | 2 to 2N - 2                     |
+
+#### **我们（痛苦的）分析过程的总结**
+
+- 构建所有可能操作的精确计数表（需要大量努力！）
+- 使用 4 次简化将表格转换为最坏情况的增长顺序。
+
+
+
+但是，如果我们从一开始就使用我们的简化来构建表格呢？
+
+### 简化分析过程
+
+我们可以：（而不是构建整个表） 
+
+- 选择我们的成本模型（我们要计算的代表性操作）。
+- 通过以下任一方式计算出我们的代表操作计数的增长顺序：
+  - 进行精确计数，并丢弃不必要的部分
+  - **或者，使用直觉/检查来确定增长顺序（练习得越多，你的直觉将越准！）**
+
+我们现在将`dup1`使用这个过程重新分析。
+
+#### 嵌套 For 循环分析：精确计数
+
+查找`dup1`的最坏情况运行时的增长顺序。
+
+```java
+int N = A.length;
+for (int i = 0; i < N; i += 1)
+   for (int j = i + 1; j < N; j += 1)
+      if (A[i] == A[j])
+         return true;
+return false;
+```
+
+**成本模型**：== 操作次数
+
+鉴于以下图表，我们如何确定发生了多少 ==？
+
+- y 轴代表 i 的每个增量
+
+- x 访问代表 j 的每个增量。
+
+![img](https://raw.githubusercontent.com/sunmiao0301/Public-Pic-Bed/main/0211xandy.png)
+
+- == 操作的最坏情况数：
+  - 成本 = 1 + 2 + 3 + … + (N-2) + (N-1)
+- 我们如何总结这笔费用？
+- 好吧，我们知道它也可以写成：
+  - 成本 = (N-1) + (N-2) + … + 3 + 2 + 1
+- 让我们总结一下这两个成本方程：
+  - 2*成本 = N + N + N + … N
+- 有多少个 N 项？
+  - N-1！（通过将两个成本方程加在一起，总和为 N 的对）
+- 因此：2*成本 = N(N-1)
+- 因此：成本 = N(N-1)/2
+- 如果我们进行简化（丢弃低阶项，摆脱乘法常数），我们会得到最坏情况下的增长顺序 =N^2
+
+
+
+#### 嵌套 For 循环分析：几何参数
+
+- 我们可以看到，相等的数量可以由边长为 N - 1 的直角三角形的面积给出
+- 因此，面积增长的顺序是N^2
+- 需要时间和练习才能做到这一点！
+
+https://www.youtube.com/watch?v=sMlmXdKb9fA&list=PL8FaHk7qbOD69aH2dhqcY64VMmX7frTUO&index=8
+
+
+
+### 形成增长顺序
+
+给定某个函数 Q(N)，我们可以应用最后两个简化来获得 **the order of growth of Q(N)**
+
+- 提醒：最后两个简化是删除低阶项和乘法常数。
+- 例子：Q(N) = 3N^3 + N^2
+- 在对增长顺序进行简化后，我们得到：N^3
+
+现在，我们将使用“Big-Theta”的正式符号来表示我们如何分析我们的代码。
+
+**检查点**：以下 5 个功能的增长形式/顺序是什么？
+
+| **function**     | **order of growth** |
+| :--------------- | :------------------ |
+| N^3 + 3N^4       | N^4                 |
+| 1/N + N^3        | N^3                 |
+| 1/N + 5          | 1                   |
+| Ne^N+ N          | Ne^N                |
+| 40 sin(N) + 4N^2 | N^2                 |
+
+**Answer:**
+
+| **order of growth** |
+| :------------------ |
+| N^4                 |
+| N^3                 |
+| 1                   |
+| Ne^N                |
+| N^2                 |
+
+## Big θ
+
+假设我们有一个增长阶为 f(N) 的函数 R(N)。在“Big-Theta”表示法中，我们将其写为 R(N) \in \Theta(f(N))。这种表示法是我们在上面找到的表示“家庭”的正式方式。
+
+示例（来自上面的检查点）：
+
+- 假设我们有一个增长阶为 f(N) 的函数 R(N)。在“Big-Theta”表示法中，我们将其写为 R(N) \in \Theta(f(N))。这种表示法是我们在上面找到的表示“家庭”的正式方式。
+
+  示例（来自上面的检查点）：
+
+  - N^3 + 3N^4 ∈ Θ ( N^4)
+  - 1/N + N^3 ∈ Θ ( N^3)
+  - 1/N + 5 ∈ Θ ( 1 )
+  - Ne^N + N ∈ Θ ( N^e)
+  - 40 sin(N) + 4N^2 ∈ Θ ( N^2)
+
+  ##### 正式定义
+
+  *R*(*N*)∈Θ(*f*(*N*)) means that there exists positive constants k1, k2. such that:
+  *k*1⋅*f*(*N*)≤*R*(*N*)≤*k*2⋅*f*(*N*), for all values of N greater than some *N*0 (a very large N).
+
+  ##### Big-Theta 和运行时分析
+
+  使用这种表示法不会改变我们分析运行时的方式（无需查找常量ķ*1, *k*2）
+
+  唯一的区别是我们使用θ符号代替“增长顺序”（即最坏情况运行时是：Θ ( *N*2) )
+
+  ```apl
+  也就是下面的图
+  ```
+  
+  ![](https://raw.githubusercontent.com/sunmiao0301/Public-Pic-Bed/main/0211bigtheta.png)
+
+## Big O (vs. Big θ )
+
+区别在于：
+
+- Big θ是：增长速度 ≈ Big θ
+- Big O是：增长速度 <= Big O
+
+```apl
+也就是下面的图
+```
+
+![](https://raw.githubusercontent.com/sunmiao0301/Public-Pic-Bed/main/0211bigO.png)
+
+Earlier, we used Big Theta to describe the order of growth of functions as well as code pieces. Recall that if R(N) \in \Theta(f(N))*R*(*N*)∈Θ(*f*(*N*)), then R(N)*R*(*N*) is both upper and lower bounded by \Theta(f(N))Θ(*f*(*N*)). Describing runtime with both an upper and lower bound can informally be though of as runtime "equality".
+
+Some examples:
+
+| function R(N)*R*(*N*)             | Order of growth          |
+| :-------------------------------- | :----------------------- |
+| N^3 + 3N^4*N*3+3*N*4              | \Theta(N^4)Θ(*N*4)       |
+| N^3 + 1/N*N*3+1/*N*               | \Theta(N^3)Θ(*N*3)       |
+| 5 + 1/N5+1/*N*                    | \Theta(1)Θ(1)            |
+| Ne^N + N*N**e**N*+*N*             | \Theta(Ne^N)Θ(*N**e**N*) |
+| 40 \sin(N) + 4N^240sin(*N*)+4*N*2 | \Theta(N^2)Θ(*N*2)       |
+
+For example, N^3 + 3N^4 \in \Theta(N^4)*N*3+3*N*4∈Θ(*N*4). It is both upper and lower bounded by N^4*N*4.
+
+On the other hand, Big O can be though of as a runtime inequality, namely, as "less than or equal". For example, all of the following are true: N^3 + 3N^4 \in O(N^4)*N*3+3*N*4∈*O*(*N*4) N^3 + 3N^4 \in O(N^6)*N*3+3*N*4∈*O*(*N*6) N^3 + 3N^4 \in O(N!)*N*3+3*N*4∈*O*(*N*!) N^3 + 3N^4 \in O(N^{N!})*N*3+3*N*4∈*O*(*N**N*!)
+
+In other words, if a function, like the one above, is upper bounded by N^4*N*4, then it is also upper bounded by functions that themselves upper bound N^4*N*4. N^3 + 3N^4*N*3+3*N*4 is "less than or equal to" all of these functions in the asymptotic sense.
+
+Recall the formal definition of Big Theta: R(N) \in \Theta(f(N))*R*(*N*)∈Θ(*f*(*N*)) means that there exists positive constants k_1, k_2*k*1,*k*2 such that:
+k_1 \cdot f(N) \leq R(N) \leq k_2 \cdot f(N)*k*​1​​⋅*f*(*N*)≤*R*(*N*)≤*k*​2​​⋅*f*(*N*) for all values of N greater than some N_0*N*​0​​ (a very large N).
+
+##### Formal Definition
+
+Similarly, here's the formal definition of Big O: R(N) \in O(f(N))*R*(*N*)∈*O*(*f*(*N*)) means that there exists positive constants k_2*k*2 such that:
+R(N) \leq k_2 \cdot f(N)*R*(*N*)≤*k*​2​​⋅*f*(*N*) for all values of N greater than some N_0*N*​0​​ (a very large N).
+
+**请注意，这是一个比 Big Theta 更宽松的条件，因为 Big O 不关心下限。**
+
+### 概括
+
+- 给定一段代码，我们可以将其运行时间RunTime表示为函数 R(N)
+  - N 是函数输入的一些**属性**
+  - 即通常，N代表输入的**大小**
+- 我们通常只关心R(N)**的增长顺序，**而不是准确地找到 R(N)。
+- 一种方法（不通用）：
+  - 选择有代表性的操作
+  - 令 C(N) = 该操作发生次数的计数，作为 N 的函数。
+  - 为C(N)确定增长顺序f(N)， IEC(N) ∈ Θ ( *f* ( *N* ) )
+  - 通常（但并非总是）我们会考虑最坏情况的计数。
+  - 如果操作需要恒定的时间，那么R(N) ∈ Θ ( *f* ( *N* ) )
