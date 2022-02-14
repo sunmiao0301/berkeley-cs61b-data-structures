@@ -497,27 +497,28 @@ Earlier, we used Big Theta to describe the order of growth of functions as well 
 
 Some examples:
 
-| function R(N)*R*(*N*)             | Order of growth          |
-| :-------------------------------- | :----------------------- |
-| N^3 + 3N^4*N*3+3*N*4              | \Theta(N^4)Θ(*N*4)       |
-| N^3 + 1/N*N*3+1/*N*               | \Theta(N^3)Θ(*N*3)       |
-| 5 + 1/N5+1/*N*                    | \Theta(1)Θ(1)            |
-| Ne^N + N*N**e**N*+*N*             | \Theta(Ne^N)Θ(*N**e**N*) |
-| 40 \sin(N) + 4N^240sin(*N*)+4*N*2 | \Theta(N^2)Θ(*N*2)       |
+| function R(N)*R*(*N*) | Order of growth |
+| :-------------------- | :-------------- |
+| N^3 + 3N^4            | Θ(*N*^4)        |
+| N^3 + 1/N             | Θ(*N*^3)        |
+| 5 + 1/N               | Θ(1)            |
+| Ne^N + N              | Θ(*N*e*^*N)     |
+| 40 \sin(N) + 4N^2     | Θ(*N^*2)        |
 
-For example, N^3 + 3N^4 \in \Theta(N^4)*N*3+3*N*4∈Θ(*N*4). It is both upper and lower bounded by N^4*N*4.
+比如，N^3 + 3N^4的上界和下界都是k * N^4
 
-On the other hand, Big O can be though of as a runtime inequality, namely, as "less than or equal". For example, all of the following are true: N^3 + 3N^4 \in O(N^4)*N*3+3*N*4∈*O*(*N*4) N^3 + 3N^4 \in O(N^6)*N*3+3*N*4∈*O*(*N*6) N^3 + 3N^4 \in O(N!)*N*3+3*N*4∈*O*(*N*!) N^3 + 3N^4 \in O(N^{N!})*N*3+3*N*4∈*O*(*N**N*!)
+另一方面，Big O 被视作小于等于。例如，以下所有内容都是正确的，比如：
 
-In other words, if a function, like the one above, is upper bounded by N^4*N*4, then it is also upper bounded by functions that themselves upper bound N^4*N*4. N^3 + 3N^4*N*3+3*N*4 is "less than or equal to" all of these functions in the asymptotic sense.
+*N*^3+3*N*^4∈*O*(*N*^4) 
 
-Recall the formal definition of Big Theta: R(N) \in \Theta(f(N))*R*(*N*)∈Θ(*f*(*N*)) means that there exists positive constants k_1, k_2*k*1,*k*2 such that:
-k_1 \cdot f(N) \leq R(N) \leq k_2 \cdot f(N)*k*​1​​⋅*f*(*N*)≤*R*(*N*)≤*k*​2​​⋅*f*(*N*) for all values of N greater than some N_0*N*​0​​ (a very large N).
+*N*^3+3*N*^4∈*O*(*N*^6)
 
-##### Formal Definition
+*N*^3+3*N*^4∈*O*(*N*!) 
 
-Similarly, here's the formal definition of Big O: R(N) \in O(f(N))*R*(*N*)∈*O*(*f*(*N*)) means that there exists positive constants k_2*k*2 such that:
-R(N) \leq k_2 \cdot f(N)*R*(*N*)≤*k*​2​​⋅*f*(*N*) for all values of N greater than some N_0*N*​0​​ (a very large N).
+##### 正式定义
+
+同样，这是 Big O 的正式定义： R* ( *N* ) ∈ *O* ( *f* ( *N* ) )表示存在正常数*ķ*2：
+*R* ( *N* ) ≤ *k*2⋅ *f* ( *N* ) 对于所有大于某个值 *ñ* 的 N（一个非常大的 N）。
 
 **请注意，这是一个比 Big Theta 更宽松的条件，因为 Big O 不关心下限。**
 
