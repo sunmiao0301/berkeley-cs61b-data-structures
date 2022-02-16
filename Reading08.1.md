@@ -86,7 +86,7 @@ class Stack<Item>{
 ```java
 public class ExtensionStack<Item> extends LinkedList<Item> {
     public void push(Item x) {
-        add(x);//为什么此处可以直接add(x)?继承还是不是很理解，得做点project
+        add(x);
     }
 }
 ```
@@ -127,6 +127,8 @@ public class StackAdapter<Item> {
 
 当您知道父类中发生了什么时，往往会使用扩展。换句话说，您知道这些方法是如何实现的。此外，通过扩展，您基本上是在说您要扩展的类的行为类似于进行扩展的类。另一方面，委托是当您不想将当前类视为您从中提取方法的类的一个版本时。
 
+
+
 视图 Views：视图是现有对象的替代表示。视图本质上限制了用户对底层对象的访问。但是，通过视图所做的更改将影响实际对象。
 
 ```java
@@ -162,7 +164,7 @@ SL.set(0, “jug”);
 
 首先要注意的是 sublist 方法返回一个列表类型。此外，还有一个名为 Sublist 的定义类，它扩展了 AbstractList。由于 Abstract List 它实现了 List 接口，它和 Sublist 是 List 类型。
 
-```
+```java
 List<Item> sublist(int start, int end){
     Return new this.Sublist(start,end);
 }

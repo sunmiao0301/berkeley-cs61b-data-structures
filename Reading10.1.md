@@ -1,6 +1,6 @@
 ## Reading 10.1  ADT Abstract Data type
 
-抽象数据类型 (ADT) 仅由其操作定义，而不由其实现定义。例如在 proj1a 中，我们开发了具有相同方法的 ArrayDeque 和 LinkedListDeque，但这些方法的编写方式却大不相同。在这种情况下，我们说 ArrayDeque 和 LinkedListDeque 是Deque ADT 的*实现*。从这个描述中，我们看到 ADT 和接口有些相关。从概念上讲，Deque 是一个接口，ArrayDeque 和 LinkedListDeque 是它的实现。在代码中，为了表达这种关系，我们让 ArrayDeque 和 LinkedListDeque 类继承自 Deque 接口。
+抽象数据类型 (ADT) 仅由其操作定义，而不由其实现定义。例如在 proj1a 中，我们开发了具有相同方法的 ArrayDeque 和 LinkedListDeque，但这些方法的编写方式却大不相同。在这种情况下，我们说 ArrayDeque 和 LinkedListDeque 是Deque ADT 的*实现*。从这个描述中，我们看到 ADT 和接口有些相关。从概念上讲，Deque 是一个接口，ArrayDeque 和 LinkedListDeque 是它的实现。在代码中，为了表达这种关系，**我们有 ArrayDeque 和 LinkedListDeque 类继承自 Deque 接口。**
 
 一些常用的 ADT 是：
 

@@ -137,73 +137,70 @@ Fundamental dynamic data structures, including linear lists, queues, trees, and 
 
 ### Contents
 
-| Reading                   | Key                                                          |
-| ------------------------- | ------------------------------------------------------------ |
-| 1.1                       | 静态类型（Java特性）<br>所有 Java 代码都是类的一部分（包括测试主方法void main()) |
-| 1.2                       | 静态方法与非静态方法（亦称类方法和实例方法）<br/>构造函数是一个**初始化**新创建对象的代码块。构造函数类似于java 中的实例方法，但它不是一个方法，因为它没有返回类型。<br/>public static void main(String[] args)与命令行参数 |
-| 2.1                       | 海象之谜<br/>基本数据类型和引用类型<br/>参数传递的本质（仍旧是GRoE） <br/>IntList<br/>迭代和递归 |
-| 2.2                       | 将IntList改名为IntNode，然后基于其创建单向链表SSList<br/>public和private<br/>嵌套类（亦称内部类）（拥有嵌套类对代码性能没有有意义的影响，只是保持代码组织的工具 -->> 将只有某个类使用的类放到使用它的类中成为嵌套类）<br/>哨兵节点 |
-| 2.3                       | 双向链表DLList<br/>泛型                                      |
-| 2.4                       | 数组<br/>二维数组<br/>System.arraycopy方法<br/>注意数组也能为null，如下（length == 0和null是不同的）<br/>public class ClassNameHere {<br/>   public static void main(String[] args) {<br/>      int[] b;<br/>      int[] a = new int[0];<br/>   }<br/>}<br/>反射 |
-| 2.5                       | AList（只支持整型的AList）<br/>Bird[] Alist = (Bird []) new Object[8];（支持通用类型的AList） |
-| 关于单向和双向链表的体会  | [link in my repo](https://github.com/sunmiao0301/Berkeley-CS61B-Data-Structures/blob/main/Reading2.5.md#%E5%81%9A%E5%88%B0%E8%BF%99%E9%87%8C%E6%9C%89%E4%B8%AA%E4%BD%93%E6%82%9F%E5%A6%82%E4%B8%8B) |
-| 3.1                       | 单元测试                                                     |
-| 关于数组中的 == 和 equals | [link in my repo](https://github.com/sunmiao0301/Berkeley-CS61B-Data-Structures/blob/main/Reading3.1-IGNORE.md#%E5%85%B3%E4%BA%8E%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84--%E5%92%8C-equals%E5%AF%B9%E4%BA%8E%E4%B8%80%E4%B8%AA%E6%95%B4%E5%9E%8B%E6%95%B0%E7%BB%84int-aa%E6%98%AF%E5%85%B6%E5%9C%B0%E5%9D%80a0%E5%B0%B1%E5%B7%B2%E7%BB%8F%E9%80%9A%E8%BF%87%E5%9C%B0%E5%9D%80%E8%BF%90%E7%AE%97%E6%8B%BF%E5%88%B0%E5%85%B6%E5%86%85%E7%9A%84%E5%AE%9E%E9%99%85%E6%95%B4%E6%95%B0%E4%BA%86) |
-| 4.1                       | 丑陋的重载和优雅的接口<br>对于SLList和AList，尽管他们方法相同，但是还是两个类，彼此没有联系，此时如果想要写longest()函数，就必须用重载<br>`public static String longest(SLList<String> list)`<br>`public static String longest(AList<String> list)`<br>但是，如果用上接口如下<br>`public interface List61B<Item> `<br>`public class AList<Item> implements List61B<Item>`<br>`public class SLList<Item> implements List61B<Item>`<br>那么longest()函数就可以写成<br>`public static String longest(List61B<Item> list) `<br>并且此时longest()方法，SLList和AList都可以使用<br><br>**重写 标记@Override**<br>重载 Overload<br><br>区分接口继承和extends<br><br>动态类型和静态类型<br>**Java运行重写方法时检查动态类型，运行重载方法时检查静态类型，以此来决定调用哪个方法。** |
-| 4.2                       | **`extends`关键字让我们保留 SLList 的原始功能，同时使我们能够进行修改和添加额外的功能。**<br>通过使用`extends`关键字，子类继承父类的所有**成员**。“成员”包括：<br>- 所有实例和静态变量<br>- 所有方法<br>- 所有嵌套类<br>- **注意构造函数是不会被继承的，因为子类不能直接访问父类的私有成员。**<br><br>对于子类在重写父类函数时，想要调用父类原函数的情况，需要用到super关键词。<br>子类的构造函数则直接super();然后补充新的情况即可。如果选择不这样做，Java 会自动为我们调用父类的无参构造函数。<br><br>Java 中的每个类都是 Object 类或是`extends` Object 类得来的后代(Object 类提供了每个 Object 都应该能够执行的操作，例如`.equals(Object obj)`、`.hashCode()`和`toString()`)<br>bark() 和 barkMany()<br><br>类型检查和强制转型Casting<br>Java8新特性 |
-| 4.3                       | *我们可以创建一个接口来保证任何实现类，比如 Dog，都包含一个比较方法，我们称之为`compareTo`. —— 这就是Java工程师一年写几百个接口的原因吗？<br>unfinished* |
-| 4.4                       | Abstract Data Type<br>![双端队列](https://joshhug.gitbooks.io/hug61b/content/assets/deque.png)在上面的图中，Deque是接口。p.s.Deque同时也被称为抽象数据类型<br>java.util 库中包含三个最重要的 ADT：<br>- List，一个流行的实现是[ArrayList](https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html)<br>- Set，一个流行的实现是[HashSet](https://docs.oracle.com/javase/7/docs/api/java/util/HashSet.html)<br>- Map，一个流行的实现是[HashMap](https://docs.oracle.com/javase/8/docs/api/java/util/HashMap.html)<br>![H](https://joshhug.gitbooks.io/hug61b/content/assets/collection_hierarchy.png)在上图中，白框是接口。蓝色框是具体的类。 <br><br>抽象类<br>抽象类可以做接口可以做的所有事情，甚至更多。**如有疑问，请尝试使用接口**以降低复杂性。 |
-| 6.1                       | ArraySet<br>default关键词                                    |
-| 6.2                       | 抛出异常 Throwing Exceptions <br>`throw new ExceptionObject(parameter1, ...)`<br>捕捉异常 Catch Exceptions（关键词try和catch保护程序免受Exception的打断）<br>`try {`<br>    `d.receivePat();`<br/>`} catch (Exception e) {`<br/>    `System.out.println("Tried to pat: " + e);`<br>`}` |
-| 6.3                       | 为一个ArraySet类配备enhanced for loop的经验规律是<br>1）ArraySet应该implements Iterable<T>；<br>2）为ArraySet增加一个iterator()方法，并且这个方法返回一个Iterator<T>类的对象（也就是下一步中的ArraySetIterator类的对象）<br>3）为ArraySet新增一个实现Iterator<T>接口的嵌套类ArraySetIterator类，并且应该具有一个hasNext()和next()方法 |
-| 6.4                       | Object类的`String toString()`和 `boolean equals(Object obj)`方法<br>对于`toString()`需要注意<br>1）由于是无参方法，我们直接对重写该方法的类的数据结构进行操作即可？<br><br>对于`equals(Object o)方法`需要注意<br>1）与null之间是否等于问题，我们必须使用 == ，否则会得到一个空指针错误<br>2）null无法调用方法，所以当`x == null`的时候，`x.equals(null)`·仍然是false |
-| 7.1                       | 使用包<br>创建包<br>默认包（任何在文件顶部没有显式包名的 Java 类都被自动认为是“默认包“的一部分）<br> 生成.jar 文件将包含您想共享的程序的所有 .class 文件，以及一些其他附加信息 |
-| 7.2                       | 访问控制<br>当没有访问修饰符时的几个细节<br>1）没有访问修饰符时，称为包私有，Class和Package可以访问，Subclass和World不可以<br>2）没有包声明的代码都属于默认包的一部分，并且由于是”包私有“，所以彼此可以访问<br>3）一个特殊情况：对于接口，其没有包声明时候的访问控制不是包私有，**是公共的**。 |
-| 9.1                       |                                                              |
-| 9.2                       |                                                              |
-| 9.3                       |                                                              |
-| 9.4                       |                                                              |
-| 9.5                       |                                                              |
-| 8.3                       |                                                              |
-| 8.4                       |                                                              |
-| 10.1                      |                                                              |
-| 10.2                      |                                                              |
-| 11.1                      |                                                              |
-| 11.2                      |                                                              |
-| 11.3                      |                                                              |
-| 11.4                      |                                                              |
-| 11.5                      |                                                              |
-| 12.1                      |                                                              |
-| 12.2                      |                                                              |
-| 12.3                      |                                                              |
-| 12.4                      |                                                              |
-| 12.5                      |                                                              |
-| 13.1                      |                                                              |
-| 13.2                      |                                                              |
-| 13.3                      |                                                              |
-| 14.1                      |                                                              |
-| 15.1                      |                                                              |
-| 15.2                      |                                                              |
-| 15.3                      |                                                              |
-| 16.1                      |                                                              |
-| 16.2                      |                                                              |
-| 16.3                      |                                                              |
-| 17.1                      |                                                              |
-| 17.2                      |                                                              |
-| 17.3                      |                                                              |
-| 17.4                      |                                                              |
-| 18.1                      |                                                              |
-| 18.2                      |                                                              |
-| 19.1                      |                                                              |
-| 19.2                      |                                                              |
-| 19.3                      |                                                              |
-| 20.1                      |                                                              |
-| 20.2                      |                                                              |
-| 21.1                      |                                                              |
-| 21.2                      |                                                              |
-| 21.3                      |                                                              |
-| 21.4                      |                                                              |
-| None Reading but Guide    |                                                              |
+| Reading                      | Key                                                          |
+| ---------------------------- | ------------------------------------------------------------ |
+| 1.1                          | 静态类型（Java特性）<br>所有 Java 代码都是类的一部分（包括测试主方法void main()) |
+| 1.2                          | 静态方法与非静态方法（亦称类方法和实例方法）<br/>构造函数是一个**初始化**新创建对象的代码块。构造函数类似于java 中的实例方法，**但它不是一个方法，因为它没有返回类型。<br/>**public static void main(String[] args)与命令行参数 |
+| 2.1                          | 海象之谜<br/>基本数据类型和引用类型<br/>参数传递的本质（仍旧是GRoE - 值传递） <br/>IntList<br/>迭代和递归 |
+| 2.2                          | 将IntList改名为IntNode，然后基于其创建单向链表SSList<br/>public和private<br/>嵌套类（亦称内部类）（拥有嵌套类对代码性能没有有意义的影响，只是保持代码组织的工具 -->> 将只有某个类使用的类放到使用它的类中成为嵌套类）<br/>哨兵节点 |
+| 2.3                          | 双向链表DLList<br/>泛型                                      |
+| 2.4                          | 数组<br/>二维数组<br/>System.arraycopy(Object src, int srcPos, Object dest, int destPos, int length)方法<br/><br>注意数组也能为null，如下（length == 0和null是不同的）<br/>public class ClassNameHere {<br/>   public static void main(String[] args) {<br/>      int[] b;<br/>      int[] a = new int[0];<br/>   }<br/>}<br/>反射 |
+| 2.5                          | AList（只支持整型的AList）<br/><br>Java不允许我们创建泛型对象数组，所以如果我们要支持通用类型的AList，需要如下操作<br>Bird[] Alist = (Bird []) new Object[8]; |
+| 关于单向和双向链表的体会     | [link in my repo](https://github.com/sunmiao0301/Berkeley-CS61B-Data-Structures/blob/main/Reading2.5.md#%E5%81%9A%E5%88%B0%E8%BF%99%E9%87%8C%E6%9C%89%E4%B8%AA%E4%BD%93%E6%82%9F%E5%A6%82%E4%B8%8B) |
+| 3.1                          | 单元测试                                                     |
+| ***关于数组中的 == 和 equals | [link in my repo](https://github.com/sunmiao0301/Berkeley-CS61B-Data-Structures/blob/main/Reading3.1-IGNORE.md#%E5%85%B3%E4%BA%8E%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84--%E5%92%8C-equals%E5%AF%B9%E4%BA%8E%E4%B8%80%E4%B8%AA%E6%95%B4%E5%9E%8B%E6%95%B0%E7%BB%84int-aa%E6%98%AF%E5%85%B6%E5%9C%B0%E5%9D%80a0%E5%B0%B1%E5%B7%B2%E7%BB%8F%E9%80%9A%E8%BF%87%E5%9C%B0%E5%9D%80%E8%BF%90%E7%AE%97%E6%8B%BF%E5%88%B0%E5%85%B6%E5%86%85%E7%9A%84%E5%AE%9E%E9%99%85%E6%95%B4%E6%95%B0%E4%BA%86) |
+| ***4.1                       | 丑陋的重载和优雅的接口<br>对于SLList和AList，尽管他们方法相同，但是还是两个类，彼此没有联系，此时如果想要写一个两者都要用longest()函数，就必须用重载<br>`public static String longest(SLList<String> list)`<br>`public static String longest(AList<String> list)`<br>但是，如果用上接口如下<br>`public interface List61B<Item> `<br>`public class AList<Item> implements List61B<Item>`<br>`public class SLList<Item> implements List61B<Item>`<br>那么longest()函数就可以写成<br>`public static String longest(List61B<Item> list) `<br>并且此时longest()方法，SLList和AList都可以使用<br><br>**重写 标记@Override**<br>重载 Overload<br><br>区分接口继承和extends<br><br>动态类型和静态类型<br>**Java运行 *重写* 方法时检查动态类型，运行 *重载* 方法时检查静态类型，以此来决定调用哪个方法。**<br>**p.s. 对于接口继承，子类 *实现* 接口中声明的方法，也叫做重写。** |
+| 4.2                          | **`extends`关键字让我们保留 SLList 的原始功能，同时使我们能够进行修改和添加额外的功能。**<br>通过使用`extends`关键字，子类继承父类的所有**成员**。“成员”包括：<br>- 所有实例和静态变量<br>- 所有方法<br>- 所有嵌套类<br>- **注意构造函数是不会被继承的，因为 [这里](https://www.geeksforgeeks.org/constructors-not-inherited-java/)。**<br><br>对于extends得到的子类，在重写父类函数时，想要调用父类原函数的情况，需要用到super关键词。<br>子类的构造函数则直接super();然后补充新的情况即可。如果选择不这样做，Java 会自动为我们调用父类的无参构造函数。<br><br>Java 中的每个类都是 Object 类或是`extends` Object 类得来的后代(Object 类提供了每个 Object 都应该能够执行的操作，例如`.equals(Object obj)`、`.hashCode()`和`toString()`)<br>bark() 和 barkMany()<br><br>类型检查和强制转型Casting<br>[**Java8新特性**](https://www.runoob.com/java/java8-new-features.html) |
+| 4.3                          | *我们可以创建一个接口来保证任何实现类，比如 Dog，都包含一个比较方法，我们称之为`compareTo`. —— 这就是Java工程师一年写几百个接口的原因吗？<br>unfinished* |
+| 4.4                          | Abstract Data Type<br>![双端队列](https://joshhug.gitbooks.io/hug61b/content/assets/deque.png)在上面的图中，Deque是接口。p.s.Deque同时也被称为抽象数据类型<br>java.util 库中包含三个最重要的 ADT：<br>- List，一个流行的实现是[ArrayList](https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html)<br>- Set，一个流行的实现是[HashSet](https://docs.oracle.com/javase/7/docs/api/java/util/HashSet.html)<br>- Map，一个流行的实现是[HashMap](https://docs.oracle.com/javase/8/docs/api/java/util/HashMap.html)<br>![H](https://joshhug.gitbooks.io/hug61b/content/assets/collection_hierarchy.png)在上图中，白框是接口。蓝色框是具体的类。 <br><br>抽象类<br>抽象类可以做接口可以做的所有事情，甚至更多。**如有疑问，请尝试使用接口**以降低复杂性。<br>p.s. 抽象数据类型不同于抽象类 |
+| 6.1                          | ArraySet<br>default关键词（java8新特性 - 默认方法）          |
+| 6.2                          | 抛出异常 Throwing Exceptions <br>`throw new ExceptionObject(parameter1, ...)`<br>捕捉异常 Catch Exceptions（关键词try和catch保护程序免受Exception的打断）<br>`try {`<br>    `d.receivePat();`<br/>`} catch (Exception e) {`<br/>    `System.out.println("Tried to pat: " + e);`<br>`}` |
+| 6.3                          | 为一个ArraySet类配备enhanced for loop的经验规律是<br>1）ArraySet应该implements Iterable<T>；<br>2）为ArraySet增加一个iterator()方法，并且这个方法返回一个Iterator<T>类的对象（也就是下一步中的ArraySetIterator类的对象）<br>3）为ArraySet新增一个实现Iterator<T>接口的嵌套类ArraySetIterator类，并且应该具有一个hasNext()和next()方法 |
+| 6.4                          | Object类的`String toString()`和 `boolean equals(Object obj)`方法<br>对于`toString()`需要注意<br>1）由于是无参方法，我们直接对重写该方法的类的数据结构进行操作即可？<br><br>对于`equals(Object o)方法`需要注意<br>1）与null之间是否等于问题，我们必须使用 == ，否则会得到一个空指针错误<br>2）null无法调用方法，所以当`x == null`的时候，`x.equals(null)`·仍然是false<br><br>3）重写equals()方法的时候需要重写hashCode()方法 |
+| 7.1                          | 使用包<br>创建包<br>默认包（任何在文件顶部没有显式包名的 Java 类都被自动认为是“默认包“的一部分）<br> 生成.jar 文件将包含您想共享的程序的所有 .class 文件，以及一些其他附加信息 |
+| 7.2                          | 访问控制<br>当没有访问修饰符时的几个细节<br>1）没有访问修饰符时，称为包私有，Class和Package可以访问，Subclass和World不可以<br>2）没有包声明的代码都属于默认包的一部分，并且由于是”包私有“，所以彼此可以访问<br>3）**一个特殊情况：**对于接口，其没有包声明时候的访问控制不是包私有，**是公共的**。 |
+| ***8.1                       | 一些ADT实际上是其他ADT的特例，如使用LinkedList为底层数据结构来实现一个Stack类（有三种流行的方法）<br><br>视图Views |
+| 8.2                          | 时间、空间复杂度<br>分析我们的算法如何根据输入的数据大小N进行缩放，分析思路：<br>1）在大多数情况下，我们只关心N非常大时会发生什么，因为我们想考虑哪种类型的算法最适合大量数据。 <br>2）通常只关心算法最坏的情况（当然也有一些例外情况）<br>3）选择一个有代表性的操作（又名：成本模型）<br/>4）忽略低阶项<br/>5）忽略常数系数<br/><br/>常见方案：<br/>1）精确计数<br/>2）几何参数<br/><br/>Big θ<br/>Big O |
+| ***8.3                       | <br/>递归的时间复杂度<br/>二分搜索时间复杂度 log(*n*)<br/>对于对数时间复杂度，对数的底根本不重要<br/>归并排序<br>NlogN 比 N^2 好的不是一星半点！ |
+| 8.4                          | Big O<br>Big Ω<br>**摊销分析 — 格里戈麦斯的骨灰盒 — 电势分析法 — 假设每一步操作的均摊开销是个常数ai，然后计算在这一假设下，每步执行完，产生的“电势”，如果电势是恒大于0，那么就证明这个假设均摊ai是大于实际均摊的，并且操作的时间复杂度是常数** <br> |
+| 10.1                         |                                                              |
+| 10.2                         |                                                              |
+| 11.1                         |                                                              |
+| 11.2                         |                                                              |
+| 11.3                         |                                                              |
+| 11.4                         |                                                              |
+| 11.5                         |                                                              |
+| 12.1                         |                                                              |
+| 12.2                         |                                                              |
+| 12.3                         |                                                              |
+| 12.4                         |                                                              |
+| 12.5                         |                                                              |
+| 13.1                         |                                                              |
+| 13.2                         |                                                              |
+| 13.3                         |                                                              |
+| 14.1                         |                                                              |
+| 15.1                         |                                                              |
+| 15.2                         |                                                              |
+| 15.3                         |                                                              |
+| 16.1                         |                                                              |
+| 16.2                         |                                                              |
+| 16.3                         |                                                              |
+| 17.1                         |                                                              |
+| 17.2                         |                                                              |
+| 17.3                         |                                                              |
+| 17.4                         |                                                              |
+| 18.1                         |                                                              |
+| 18.2                         |                                                              |
+| 19.1                         |                                                              |
+| 19.2                         |                                                              |
+| 19.3                         |                                                              |
+| 20.1                         |                                                              |
+| 20.2                         |                                                              |
+| 21.1                         |                                                              |
+| 21.2                         |                                                              |
+| 21.3                         |                                                              |
+| 21.4                         |                                                              |
+| None Reading but Guide       |                                                              |
 
 
 

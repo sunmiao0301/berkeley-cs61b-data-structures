@@ -23,7 +23,7 @@ public T get(int index);
 
 这些方法实际上是由 ArrayDeque 和 LinkedListDeque **实现的。**
 
-在 Java 中，Deque 被称为接口。从概念上讲，我们称 deque 为**Abstract 数据类型。Deque只带有行为，没有任何具体的方式来展示这些行为。这样，它是抽象的。**
+在 Java 中，Deque 被称为接口。从概念上讲，我们称 deque 为**Abstract Data Type 抽象数据类型。Deque只带有行为，没有任何具体的方式来展示这些行为。这样，它是抽象的。**
 
 ## Java 库
 
@@ -31,21 +31,15 @@ Java 具有某些您可以使用的内置抽象数据类型。这些都打包在
 
 java.util 库中包含三个最重要的 ADT：
 
-- List
-
-  ：项目的有序集合
+- List：项目的有序集合
 
   - 一个流行的实现是[ArrayList](https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html)
 
-- Set
-
-  ：严格唯一项的无序集合（无重复）
+- Set：严格唯一项的无序集合（无重复）
 
   - 一个流行的实现是[HashSet](https://docs.oracle.com/javase/7/docs/api/java/util/HashSet.html)
 
-- Map
-
-  ：键/值对的集合。您可以通过键访问该值。
+- Map：键/值对的集合。您可以通过键访问该值。
 
   - 一个流行的实现是[HashMap](https://docs.oracle.com/javase/8/docs/api/java/util/HashMap.html)
 
@@ -138,23 +132,25 @@ public static Map<String, Integer> collectWordCount(List<String> words) {
 - **基本数据结构更类似于底层硬件：**
   - 在 Python 中做 ArrayDeque 会很奇怪，因为不需要调整数组大小。但是，在硬件中（参见 61C），不存在可变长度数组。
 
+
+
 ## 抽象类
 
-我们已经看到了可以做很多很酷的事情的接口！它们允许您利用接口继承和实现继承。作为复习，这些是接口的特性：
+**我们已经看到了可以做很多很酷的事情的接口！它们允许您利用接口继承和实现继承。作为复习，这些是接口的特性：**
 
-- 所有方法都必须是公开的。
-- 所有变量都必须是 public static final。
-- 无法实例化
-- 默认情况下，所有方法都是抽象的，除非指定为`default`
-- 每个类可以实现多个接口
+- **所有方法都必须是公开的。**
+- **所有变量都必须是 public static final。**
+- **无法实例化**
+- **默认情况下，所有方法都是抽象的，除非指定为`default`**
+- **每个类可以实现多个接口**
 
-我们现在将介绍一个介于接口和具体类之间的新类：抽象类。下面是抽象类的特征：
+**我们现在将介绍一个介于接口和具体类之间的新类：抽象类。下面是抽象类的特征：**
 
-- 方法可以是公共的或私有的
-- 可以有任何类型的变量
-- 无法实例化
-- 默认情况下，方法是具体的，除非指定为`abstract`
-- 每个类只能实现一个
+- **方法可以是公共的或私有的**
+- **可以有任何类型的变量**
+- **无法实例化**
+- **默认情况下，方法是具体的，除非指定为`abstract`**
+- **每个类只能实现一个**
 
 **基本上，抽象类可以做接口可以做的所有事情，甚至更多。**
 
