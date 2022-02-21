@@ -35,9 +35,9 @@ public class Plip extends Creature {
      */
     public Plip(double e) {
         super("plip");
-        r = 0;
+        r = 99;
         g = 0;
-        b = 0;
+        b = 76;
         energy = e;
     }
 
@@ -57,7 +57,8 @@ public class Plip extends Creature {
      * that you get this exactly correct.
      */
     public Color color() {
-        g = 63;
+        //g = 63;
+        g =(int)(96 * energy + 63);
         return color(r, g, b);
     }
 
@@ -75,6 +76,9 @@ public class Plip extends Creature {
      */
     public void move() {
         // TODO
+        energy -= 0.15;
+        if(energy > 2)
+            energy = 2;
     }
 
 
@@ -83,6 +87,9 @@ public class Plip extends Creature {
      */
     public void stay() {
         // TODO
+        energy += 0.2;
+        if(energy > 2)
+            energy = 2;
     }
 
     /**
@@ -91,7 +98,9 @@ public class Plip extends Creature {
      * Plip.
      */
     public Plip replicate() {
-        return this;
+        Plip babyPlip = new Plip(this.energy / 2);
+        this.energy = babyPlip.energy;
+        return babyPlip;
     }
 
     /**
@@ -115,10 +124,35 @@ public class Plip extends Creature {
         // (Google: Enhanced for-loop over keys of NEIGHBORS?)
         // for () {...}
 
+        //
+        boolean allBlock = true;
+        for(Map.Entry<Direction, Occupant> entry : neighbors.entrySet()){// googling result...
+            if(!entry.getValue().equals("empty"))
+                allBlock = false;
+            if(entry.getValue().equals("clorus"))
+                anyClorus = true;
+        }
+        if(allBlock == true)
+            return new Action(Action.ActionType.STAY);
+/**
         if (false) { // FIXME
             // TODO
-        }
 
+        }
+ */
+        if(this.energy >= 1.0){
+            Plip baby = this.replicate();
+            if (neighbors.get(Direction.TOP).name().equals("empty")) {
+
+                return new Action(Action.ActionType.MOVE, Direction.TOP);
+            } else if (neighbors.get(Direction.BOTTOM).name().equals("empty")) {
+                return new Action(Action.ActionType.MOVE, Direction.BOTTOM);
+            } else if (neighbors.get(Direction.LEFT).name().equals("empty")) {
+                return new Action(Action.ActionType.MOVE, Direction.LEFT);
+            } else {
+                return new Action(Action.ActionType.MOVE, Direction.RIGHT);
+            }
+        }
         // Rule 2
         // HINT: randomEntry(emptyNeighbors)
 

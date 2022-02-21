@@ -1,6 +1,8 @@
 package creatures;
 import org.junit.Test;
 import static org.junit.Assert.*;
+
+import java.nio.channels.Pipe;
 import java.util.HashMap;
 import java.awt.Color;
 import huglife.Direction;
@@ -33,6 +35,18 @@ public class TestPlip {
     @Test
     public void testReplicate() {
         // TODO
+        Plip p = new Plip(2);
+        assertEquals(2, p.energy(), 0.01);
+        assertEquals(new Color(99, 255, 76), p.color());
+        p.move();
+        assertEquals(1.85, p.energy(), 0.01);
+        p.move();
+        assertEquals(1.70, p.energy(), 0.01);
+
+        Plip baby = p.replicate();
+        assertEquals(0.85, p.energy(), 0.01);
+
+        assertEquals(new Color(99, 144, 76), baby.color());
     }
 
     //@Test

@@ -12,5 +12,5 @@ public class Tes {
     public static double add(int i, double d){
         return i + d;
     }
-    
+
 }

@@ -2,7 +2,7 @@ import sun.misc.OSEnvironment;
 
 import java.util.List;
 
-public class LinkedListDeque<T>{
+public class LinkedListDeque<T> implements Deque<T> {
     /**
      * 这是一个基于链表的类
      * add和remove操作不得涉及任何循环或递归。单个这样的操作必须花费“恒定时间”，即执行时间不应取决于双端队列的大小。
@@ -45,6 +45,7 @@ public class LinkedListDeque<T>{
         return getRecursive(index--, sentinel.next);
     }//与 get 相同，但使用递归。
 
+    @Override
     public void addFirst (T item){//(T item){
         Node p = new Node(item, sentinel, sentinel.next);
         sentinel.next.pre = p;
@@ -52,6 +53,7 @@ public class LinkedListDeque<T>{
         size++;
     }//在双端队列的前面添加一个类型的项目。
 
+    @Override
     public void addLast(T item){//(T item){
         Node p = new Node(item, sentinel.pre, sentinel);
         sentinel.pre.next = p;
@@ -59,16 +61,20 @@ public class LinkedListDeque<T>{
         size++;
     }//在双端队列的后面添加一个类型的项目。
 
+    /**
     public boolean isEmpty(){
         if(size == 0)
             return true;
         return false;
     }//如果 deque 为空，则返回 true，否则返回 false。
+     */
 
+    @Override
     public int size(){
         return size;
     }//返回双端队列中的项目数。
 
+    @Override
     public void printDeque(){
         Node p = sentinel.next;
         while(p != sentinel){
@@ -78,6 +84,7 @@ public class LinkedListDeque<T>{
         System.out.println();
     }//从头到尾打印双端队列中的项目，用空格分隔。打印完所有项目后，打印出一个新行。
 
+    @Override
     public T removeFirst(){
         Node res = sentinel.next;
         sentinel.next.next.pre = sentinel;
@@ -86,6 +93,7 @@ public class LinkedListDeque<T>{
         return res.item;
     }//删除并返回双端队列前面的项目。如果不存在这样的项目，则返回 null。
 
+    @Override
     public T removeLast() {
         Node res = sentinel.pre;
         sentinel.pre.pre.next = sentinel;
@@ -94,6 +102,7 @@ public class LinkedListDeque<T>{
         return res.item;
     }//删除并返回双端队列后面的项目。如果不存在这样的项目，则返回 null。
 
+    @Override
     public T get(int index){
         if(index >= size || index < 0)
             return null;
