@@ -101,7 +101,7 @@ Process finished with exit code 0
 
 #### Plip 复制方法
 
-现在我们将努力为我们的 Plips 添加正确的复制属性。在开始之前，请阅读以下规范并在方法中编写适当的测试`testReplicate()`。**请务必检查：`Plip` 的方法`replicate()`返回的`plip`与调用方法的`Plip`不同。**
+现在我们将努力为我们的 Plips 添加正确的复制属性。在开始之前，请阅读以下规范并在方法中编写适当的测试`testReplicate()`。**请务必注意到：`Plip` 的方法`replicate()`返回的`plip`与调用方法的`Plip`不是同一个**
 
 Plips 的复制行为是：
 
@@ -136,7 +136,7 @@ Plips 的复制行为是：
     }
 //并且通过
 
-Tests passed：1 
+Tests passed：2 //此时，加上上一个Test的通过，已经有两个通过了
 
 Process finished with exit code 0
 ```
@@ -164,9 +164,67 @@ Plip 应遵循以下行为规则，按优先顺序排列：
 
 稍后，一旦您编写了`Clorus`课程，您可能会发现回来尝试编写随机性测试很有趣，因为逃离 clorus 的几率只有 50%。一种可能性是通过多次调用并确保每个调用至少发生一次来简单地测试这两种选择是否可行。对于今天的实验室而言，执行统计测试可能有点过分（尽管如果您想要额外的挑战，欢迎您）。
 
+```java
+//完成如下：
+public Action chooseAction(Map<Direction, Occupant> neighbors) {
+        // Rule 1
+        Deque<Direction> emptyNeighbors = new ArrayDeque<>();
+        boolean anyClorus = false;
+        // TODO
+        // (Google: Enhanced for-loop over keys of NEIGHBORS?)
+        // for () {...}
+
+        for(Map.Entry<Direction, Occupant> entry : neighbors.entrySet()){// googling result...
+            if(entry.getValue().name().equals("empty"))
+                emptyNeighbors.add(entry.getKey());
+        }
+        if(emptyNeighbors.size() == 0)
+            return new Action(Action.ActionType.STAY);
+      /**
+        if (false) { // FIXME
+            // TODO
+
+        }
+       */
+
+        // Rule 2
+        // HINT: randomEntry(emptyNeighbors)
+        if(this.energy >= 1.0){
+            //can't find a method to random replicate... so just replicate in the first direction.
+            //if(emptyNeighbors.getFirst().equals(Direction.TOP))
+                return new Action(Action.ActionType.REPLICATE, emptyNeighbors.getFirst());
+        }
+
+        // Rule 3
+        for(Map.Entry<Direction, Occupant> entry : neighbors.entrySet()){
+            if(entry.getValue().name().equals("clorus")){
+                if(entry.getKey().equals(Direction.TOP))
+                    return new Action(Action.ActionType.MOVE, Direction.BOTTOM);
+                if(entry.getKey().equals(Direction.LEFT))
+                    return new Action(Action.ActionType.MOVE, Direction.RIGHT);
+                if(entry.getKey().equals(Direction.BOTTOM))
+                    return new Action(Action.ActionType.MOVE, Direction.TOP);
+                if(entry.getKey().equals(Direction.RIGHT))
+                    return new Action(Action.ActionType.MOVE, Direction.LEFT);
+            }
+        }
+
+        // Rule 4
+        return new Action(Action.ActionType.STAY);
+    }
+
+//测试结果如下：
+
+Tests passed：3
+    
+Process finished with exit code 0
+```
+
+
+
 #### 写作`chooseAction()`
 
-编辑`Plip`类，使其做出正确的选择。您需要仔细查看`SampleCreature`该类作为指南，以了解这些`huglife`功能。您还需要弄清楚如何使用`neighbors`参数，即`Map`. 要了解如何使用它，请查看用于`Map`. 您可能还想在 Google 上了解如何使用增强的 for 循环来遍历地图的键。什么是地图？它就像一个 Python 字典。每个键都映射到一个对应的值，因此在这种情况下，每个键`Direction`都映射到一个`Occupant`（并记住 an `Creature`、 `Empty`和`Impassible`extend `Occupant`）。
+编辑`Plip`类，使其做出正确的选择。您需要仔细查看`SampleCreature`该类作为指南，以了解这些`huglife`功能。您还需要弄清楚如何使用`neighbors`参数，即`Map`. 要了解如何使用它，请查看用于`Map`. 您可能还想在 Google 上了解如何使用增强的 for 循环来遍历地图的键。什么是地图？它就像一个 Python 字典。每个键都映射到一个对应的值，因此在这种情况下，每个键`Direction`都映射到一个`Occupant`（并记住  `Creature`、 `Empty`和`Impassible`extend `Occupant`）。
 
 ## 模拟剪辑
 

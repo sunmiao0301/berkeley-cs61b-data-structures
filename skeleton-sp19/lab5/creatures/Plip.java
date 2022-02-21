@@ -56,6 +56,7 @@ public class Plip extends Creature {
      * linearly in between these two extremes. It's not absolutely vital
      * that you get this exactly correct.
      */
+
     public Color color() {
         //g = 63;
         g =(int)(96 * energy + 63);
@@ -124,39 +125,40 @@ public class Plip extends Creature {
         // (Google: Enhanced for-loop over keys of NEIGHBORS?)
         // for () {...}
 
-        //
-        boolean allBlock = true;
         for(Map.Entry<Direction, Occupant> entry : neighbors.entrySet()){// googling result...
-            if(!entry.getValue().equals("empty"))
-                allBlock = false;
-            if(entry.getValue().equals("clorus"))
-                anyClorus = true;
+            if(entry.getValue().name().equals("empty"))
+                emptyNeighbors.add(entry.getKey());
         }
-        if(allBlock == true)
+        if(emptyNeighbors.size() == 0)
             return new Action(Action.ActionType.STAY);
-/**
+      /**
         if (false) { // FIXME
             // TODO
 
         }
- */
-        if(this.energy >= 1.0){
-            Plip baby = this.replicate();
-            if (neighbors.get(Direction.TOP).name().equals("empty")) {
+       */
 
-                return new Action(Action.ActionType.MOVE, Direction.TOP);
-            } else if (neighbors.get(Direction.BOTTOM).name().equals("empty")) {
-                return new Action(Action.ActionType.MOVE, Direction.BOTTOM);
-            } else if (neighbors.get(Direction.LEFT).name().equals("empty")) {
-                return new Action(Action.ActionType.MOVE, Direction.LEFT);
-            } else {
-                return new Action(Action.ActionType.MOVE, Direction.RIGHT);
-            }
-        }
         // Rule 2
         // HINT: randomEntry(emptyNeighbors)
+        if(this.energy >= 1.0){
+            //can't find a method to random replicate... so just replicate in the first direction.
+            //if(emptyNeighbors.getFirst().equals(Direction.TOP))
+                return new Action(Action.ActionType.REPLICATE, emptyNeighbors.getFirst());
+        }
 
         // Rule 3
+        for(Map.Entry<Direction, Occupant> entry : neighbors.entrySet()){
+            if(entry.getValue().name().equals("clorus")){
+                if(entry.getKey().equals(Direction.TOP))
+                    return new Action(Action.ActionType.MOVE, Direction.BOTTOM);
+                if(entry.getKey().equals(Direction.LEFT))
+                    return new Action(Action.ActionType.MOVE, Direction.RIGHT);
+                if(entry.getKey().equals(Direction.BOTTOM))
+                    return new Action(Action.ActionType.MOVE, Direction.TOP);
+                if(entry.getKey().equals(Direction.RIGHT))
+                    return new Action(Action.ActionType.MOVE, Direction.LEFT);
+            }
+        }
 
         // Rule 4
         return new Action(Action.ActionType.STAY);

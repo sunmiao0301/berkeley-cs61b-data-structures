@@ -49,7 +49,7 @@ public class TestPlip {
         assertEquals(new Color(99, 144, 76), baby.color());
     }
 
-    //@Test
+    @Test
     public void testChoose() {
 
         // No empty adjacent spaces; stay.
