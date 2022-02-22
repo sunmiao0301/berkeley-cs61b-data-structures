@@ -37,7 +37,7 @@ public class SampleCreature extends Creature {
     /**
      * probability of taking a move when ample space available.
      */
-    private double moveProbability = 0.2;//0.2
+    private double moveProbability = 0.2;
     /**
      * degree of color shift to allow.
      */

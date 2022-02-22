@@ -30,14 +30,16 @@ public class Plip extends Creature {
      */
     private int b;
 
+    private double moveProbality = 0.5;
+
     /**
      * creates plip with energy equal to E.
      */
     public Plip(double e) {
         super("plip");
-        r = 99;
+        r = 0;
         g = 0;
-        b = 76;
+        b = 0;
         energy = e;
     }
 
@@ -56,10 +58,11 @@ public class Plip extends Creature {
      * linearly in between these two extremes. It's not absolutely vital
      * that you get this exactly correct.
      */
-
     public Color color() {
-        //g = 63;
-        g =(int)(96 * energy + 63);
+        r = 99;
+        b = 76;
+        g = 63;
+        g += 96 * energy;
         return color(r, g, b);
     }
 
@@ -78,8 +81,8 @@ public class Plip extends Creature {
     public void move() {
         // TODO
         energy -= 0.15;
-        if(energy > 2)
-            energy = 2;
+        if(energy < 0)
+            energy = 0;
     }
 
 
@@ -91,6 +94,7 @@ public class Plip extends Creature {
         energy += 0.2;
         if(energy > 2)
             energy = 2;
+
     }
 
     /**
@@ -99,9 +103,9 @@ public class Plip extends Creature {
      * Plip.
      */
     public Plip replicate() {
-        Plip babyPlip = new Plip(this.energy / 2);
-        this.energy = babyPlip.energy;
-        return babyPlip;
+        energy /= 2;
+        return new Plip(energy);
+        //return this;
     }
 
     /**
@@ -120,44 +124,34 @@ public class Plip extends Creature {
     public Action chooseAction(Map<Direction, Occupant> neighbors) {
         // Rule 1
         Deque<Direction> emptyNeighbors = new ArrayDeque<>();
+        Deque<Direction> clorusNeighbors = new ArrayDeque<>();
         boolean anyClorus = false;
         // TODO
         // (Google: Enhanced for-loop over keys of NEIGHBORS?)
         // for () {...}
-
-        for(Map.Entry<Direction, Occupant> entry : neighbors.entrySet()){// googling result...
+        for (Map.Entry<Direction, Occupant> entry : neighbors.entrySet()){
             if(entry.getValue().name().equals("empty"))
                 emptyNeighbors.add(entry.getKey());
-        }
-        if(emptyNeighbors.size() == 0)
-            return new Action(Action.ActionType.STAY);
-      /**
-        if (false) { // FIXME
-            // TODO
+            if(entry.getValue().name().equals("clorus"))
+                clorusNeighbors.add(entry.getKey());
 
         }
-       */
+/**
+        if (false) { // FIXME
+            // TODO
+        }
+ */
+        if(emptyNeighbors.size() == 0)
+            return new Action(Action.ActionType.STAY);
 
         // Rule 2
         // HINT: randomEntry(emptyNeighbors)
-        if(this.energy >= 1.0){
-            //can't find a method to random replicate... so just replicate in the first direction.
-            //if(emptyNeighbors.getFirst().equals(Direction.TOP))
-                return new Action(Action.ActionType.REPLICATE, emptyNeighbors.getFirst());
-        }
+        if(energy >= 1.0)
+            return new Action(Action.ActionType.REPLICATE, emptyNeighbors.getFirst());
 
         // Rule 3
-        for(Map.Entry<Direction, Occupant> entry : neighbors.entrySet()){
-            if(entry.getValue().name().equals("clorus")){
-                if(entry.getKey().equals(Direction.TOP))
-                    return new Action(Action.ActionType.MOVE, Direction.BOTTOM);
-                if(entry.getKey().equals(Direction.LEFT))
-                    return new Action(Action.ActionType.MOVE, Direction.RIGHT);
-                if(entry.getKey().equals(Direction.BOTTOM))
-                    return new Action(Action.ActionType.MOVE, Direction.TOP);
-                if(entry.getKey().equals(Direction.RIGHT))
-                    return new Action(Action.ActionType.MOVE, Direction.LEFT);
-            }
+        if(clorusNeighbors.size() > 0 && Math.random() < moveProbality){
+            return new Action(Action.ActionType.MOVE, emptyNeighbors.getFirst());
         }
 
         // Rule 4
