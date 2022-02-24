@@ -1,5 +1,9 @@
 package hw3.hash;
 
+import org.omg.CORBA.OMGVMCID;
+
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 public class OomageTestUtility {
@@ -12,6 +16,15 @@ public class OomageTestUtility {
          * and ensure that no bucket has fewer than N / 50
          * Oomages and no bucket has more than N / 2.5 Oomages.
          */
-        return false;
+        // map = new HashMap<>();
+        int[] arr = new int[M];
+        for(Oomage o : oomages){
+            arr[(o.hashCode() & 0x7FFFFFFF) % M]++;
+        }
+        for(int i = 0; i < M; i++){
+            if(arr[i] > oomages.size() / 2.5 || arr[i] < oomages.size() / 50)
+                return false;
+        }
+        return true;
     }
 }
