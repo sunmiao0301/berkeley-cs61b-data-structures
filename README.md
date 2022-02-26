@@ -139,9 +139,9 @@ Fundamental dynamic data structures, including linear lists, queues, trees, and 
 
 | Reading                      | Key                                                          |
 | ---------------------------- | ------------------------------------------------------------ |
-| 1.1                          | 静态类型（Java特性）<br>所有 Java 代码都是类的一部分（包括测试主方法void main()) |
-| 1.2                          | 静态方法与非静态方法（亦称类方法和实例方法）<br/>构造函数是一个**初始化**新创建对象的代码块。构造函数类似于java 中的实例方法，**但它不是一个方法，因为它没有返回类型。<br/>**public static void main(String[] args)与命令行参数 |
-| 2.1                          | 海象之谜<br/>基本数据类型和引用类型<br/>参数传递的本质（仍旧是GRoE - 值传递） <br/>IntList<br/>迭代和递归 |
+| 1.1                          | 静态类型（Java特性）<br><br/>所有 Java 代码都是类的一部分（包括测试主方法void main()) |
+| 1.2                          | 静态方法与非静态方法（亦称类方法和实例方法）<br/><br/>静态变量：静态变量应该使用类的名称而不是特定的实例来访问，例如你应该使用`Dog.scientificName`，而不是`d.scientificName`。<br/><br/>构造函数是一个**初始化**新创建对象的代码块。构造函数类似于java 中的实例方法，**但它不是一个方法，因为它没有返回类型。<br/>**public static void main(String[] args)与命令行参数 |
+| 2.1                          | **海象之谜**<br/><br/>基本数据类型和引用类型<br/><br/>(p.s. Java中引用类型是64位框 - 64位来存指向的对象实例在内存中的地址)<br/><br/>参数传递的本质（仍旧是GRoE - 值传递 -  传递的参数是基本数据类型就新建，引用类型就共用） <br/><br/>数组名也是引用类型<br/><br/>IntList<br/><br/>迭代和递归 |
 | 2.2                          | 将IntList改名为IntNode，然后基于其创建单向链表SSList<br/>public和private<br/>嵌套类（亦称内部类）（拥有嵌套类对代码性能没有有意义的影响，只是保持代码组织的工具 -->> 将只有某个类使用的类放到使用它的类中成为嵌套类）<br/>哨兵节点 |
 | 2.3                          | 双向链表DLList<br/>泛型                                      |
 | 2.4                          | 数组<br/>二维数组<br/>System.arraycopy(Object src, int srcPos, Object dest, int destPos, int length)方法<br/><br>注意数组也能为null，如下（length == 0和null是不同的）<br/>public class ClassNameHere {<br/>   public static void main(String[] args) {<br/>      int[] b;<br/>      int[] a = new int[0];<br/>   }<br/>}<br/>反射 |
