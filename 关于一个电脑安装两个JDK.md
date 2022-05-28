@@ -27,13 +27,13 @@ D:\Java\jdk17
 
 > ~~**2.4 CLASSPATH路径最后面增加如下内容:**~~ 
 >
->   ~~.;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar;~~
+> ~~.;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar;~~
 >
 > ~~**2.5 Path路径在\**最前面\**增加如下内容:**~~
 >
->  ~~%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin;~~
+> ~~%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin;~~
 >
->  ~~一定要在最前面增加~~
+> ~~一定要在最前面增加~~
 
 3 . 查看版本是否更换成功
 
@@ -49,3 +49,26 @@ java -version
   ~~因为C:\Windows\System32目录优先级高于JAVA_HOME配置目录，所以有可能导致切换不生效。~~
 
   ~~个人是没有遇到过这种情况。~~
+
+
+
+## 后来，准备调整回来的时候，发现尽管我将JAVA_HOME的值改为%JAVA_HOME8%，在cmd中java --version的时候仍然得到是java 17
+
+问题原因见[链接](https://www.jianshu.com/p/0f972d981fad)
+
+解决方案：
+找到系统环境变量的Path，将其中的%JAVA_HOME%\bin上移到C盘的javapath之上，如下：
+
+![image-20220528223443258](https://raw.githubusercontent.com/sunmiao0301/Public-Pic-Bed/main/imgfromPicGO/202205282234358.png)
+
+然后重启cmd，然后再去cmd检查一下，没有问题了。
+
+![image-20220528223634138](https://raw.githubusercontent.com/sunmiao0301/Public-Pic-Bed/main/imgfromPicGO/202205282236189.png)
+
+此时再切换回java17之后，也没有问题：
+
+![image-20220528223858837](https://raw.githubusercontent.com/sunmiao0301/Public-Pic-Bed/main/imgfromPicGO/202205282238897.png)
+
+重启cmd之后，情况如下：
+
+![image-20220528223825825](https://raw.githubusercontent.com/sunmiao0301/Public-Pic-Bed/main/imgfromPicGO/202205282238885.png)
